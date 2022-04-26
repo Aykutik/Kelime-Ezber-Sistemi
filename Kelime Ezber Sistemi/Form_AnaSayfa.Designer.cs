@@ -38,6 +38,7 @@ namespace Kelime_Ezber_Sistemi
             this.btn_Seviye5 = new DevExpress.XtraEditors.SimpleButton();
             this.xtraTabControl_AnaSayfa = new DevExpress.XtraTab.XtraTabControl();
             this.XTC_AnaSayfa_AnaSayfa = new DevExpress.XtraTab.XtraTabPage();
+            this.btn_kelimeEkle = new DevExpress.XtraEditors.SimpleButton();
             this.lbl_sayı_Kalıcı = new DevExpress.XtraEditors.LabelControl();
             this.lbl_sayı_S5 = new DevExpress.XtraEditors.LabelControl();
             this.lbl_sayı_S4 = new DevExpress.XtraEditors.LabelControl();
@@ -47,8 +48,8 @@ namespace Kelime_Ezber_Sistemi
             this.btn_kalıcıHafıza = new DevExpress.XtraEditors.SimpleButton();
             this.XTC_AnaSayfa_Seviye1 = new DevExpress.XtraTab.XtraTabPage();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
-            this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.lbl_doğru_s1 = new DevExpress.XtraEditors.LabelControl();
+            this.lbl_toplamSayı_s1 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
@@ -97,7 +98,14 @@ namespace Kelime_Ezber_Sistemi
             this.simpleButton43 = new DevExpress.XtraEditors.SimpleButton();
             this.XTC_AnaSayfa_KalıcıHafıza = new DevExpress.XtraTab.XtraTabPage();
             this.timer_soruArası = new System.Windows.Forms.Timer(this.components);
-            this.btn_kelimeEkle = new DevExpress.XtraEditors.SimpleButton();
+            this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
+            this.lbl_yanlış_s1 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
+            this.lbl_toplamSayı_s2 = new DevExpress.XtraEditors.LabelControl();
+            this.ch_fiiller = new DevExpress.XtraEditors.CheckButton();
+            this.ch_favoriler = new DevExpress.XtraEditors.CheckButton();
+            this.ch_yanlışlar = new DevExpress.XtraEditors.CheckButton();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl_AnaSayfa)).BeginInit();
             this.xtraTabControl_AnaSayfa.SuspendLayout();
             this.XTC_AnaSayfa_AnaSayfa.SuspendLayout();
@@ -133,6 +141,8 @@ namespace Kelime_Ezber_Sistemi
             ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl18)).BeginInit();
             this.groupControl18.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
+            this.groupControl6.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_Seviye1
@@ -185,7 +195,7 @@ namespace Kelime_Ezber_Sistemi
             this.xtraTabControl_AnaSayfa.Location = new System.Drawing.Point(12, 12);
             this.xtraTabControl_AnaSayfa.Name = "xtraTabControl_AnaSayfa";
             this.xtraTabControl_AnaSayfa.SelectedTabPage = this.XTC_AnaSayfa_AnaSayfa;
-            this.xtraTabControl_AnaSayfa.Size = new System.Drawing.Size(499, 558);
+            this.xtraTabControl_AnaSayfa.Size = new System.Drawing.Size(438, 435);
             this.xtraTabControl_AnaSayfa.TabIndex = 1;
             this.xtraTabControl_AnaSayfa.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.XTC_AnaSayfa_AnaSayfa,
@@ -215,6 +225,14 @@ namespace Kelime_Ezber_Sistemi
             this.XTC_AnaSayfa_AnaSayfa.Name = "XTC_AnaSayfa_AnaSayfa";
             this.XTC_AnaSayfa_AnaSayfa.Size = new System.Drawing.Size(497, 533);
             this.XTC_AnaSayfa_AnaSayfa.Text = "ANA SAYFA";
+            // 
+            // btn_kelimeEkle
+            // 
+            this.btn_kelimeEkle.Location = new System.Drawing.Point(441, 19);
+            this.btn_kelimeEkle.Name = "btn_kelimeEkle";
+            this.btn_kelimeEkle.Size = new System.Drawing.Size(42, 23);
+            this.btn_kelimeEkle.TabIndex = 10;
+            this.btn_kelimeEkle.Text = "Ekle";
             // 
             // lbl_sayı_Kalıcı
             // 
@@ -275,56 +293,57 @@ namespace Kelime_Ezber_Sistemi
             // 
             // XTC_AnaSayfa_Seviye1
             // 
+            this.XTC_AnaSayfa_Seviye1.Controls.Add(this.groupControl6);
             this.XTC_AnaSayfa_Seviye1.Controls.Add(this.groupControl5);
             this.XTC_AnaSayfa_Seviye1.Controls.Add(this.groupControl4);
             this.XTC_AnaSayfa_Seviye1.Name = "XTC_AnaSayfa_Seviye1";
-            this.XTC_AnaSayfa_Seviye1.Size = new System.Drawing.Size(497, 533);
+            this.XTC_AnaSayfa_Seviye1.Size = new System.Drawing.Size(436, 410);
             this.XTC_AnaSayfa_Seviye1.Text = "SEVİYE 1";
             // 
             // groupControl5
             // 
-            this.groupControl5.Controls.Add(this.labelControl7);
+            this.groupControl5.Controls.Add(this.lbl_toplamSayı_s2);
+            this.groupControl5.Controls.Add(this.lbl_toplamSayı_s1);
             this.groupControl5.Controls.Add(this.labelControl3);
-            this.groupControl5.Controls.Add(this.labelControl6);
             this.groupControl5.Controls.Add(this.labelControl5);
             this.groupControl5.GroupStyle = DevExpress.Utils.GroupStyle.Light;
             this.groupControl5.Location = new System.Drawing.Point(23, 29);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(387, 63);
+            this.groupControl5.Size = new System.Drawing.Size(234, 63);
             this.groupControl5.TabIndex = 8;
-            this.groupControl5.Text = "Seviye Bilgileri";
+            this.groupControl5.Text = "Seviye Bilgisi";
             // 
-            // labelControl7
+            // lbl_doğru_s1
             // 
-            this.labelControl7.Location = new System.Drawing.Point(319, 29);
-            this.labelControl7.Name = "labelControl7";
-            this.labelControl7.Size = new System.Drawing.Size(6, 13);
-            this.labelControl7.TabIndex = 0;
-            this.labelControl7.Text = "0";
+            this.lbl_doğru_s1.Location = new System.Drawing.Point(54, 23);
+            this.lbl_doğru_s1.Name = "lbl_doğru_s1";
+            this.lbl_doğru_s1.Size = new System.Drawing.Size(6, 13);
+            this.lbl_doğru_s1.TabIndex = 0;
+            this.lbl_doğru_s1.Text = "0";
             // 
-            // labelControl3
+            // lbl_toplamSayı_s1
             // 
-            this.labelControl3.Location = new System.Drawing.Point(120, 29);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(6, 13);
-            this.labelControl3.TabIndex = 0;
-            this.labelControl3.Text = "0";
+            this.lbl_toplamSayı_s1.Location = new System.Drawing.Point(97, 26);
+            this.lbl_toplamSayı_s1.Name = "lbl_toplamSayı_s1";
+            this.lbl_toplamSayı_s1.Size = new System.Drawing.Size(6, 13);
+            this.lbl_toplamSayı_s1.TabIndex = 0;
+            this.lbl_toplamSayı_s1.Text = "0";
             // 
             // labelControl6
             // 
-            this.labelControl6.Location = new System.Drawing.Point(212, 29);
+            this.labelControl6.Location = new System.Drawing.Point(15, 23);
             this.labelControl6.Name = "labelControl6";
-            this.labelControl6.Size = new System.Drawing.Size(101, 13);
+            this.labelControl6.Size = new System.Drawing.Size(33, 13);
             this.labelControl6.TabIndex = 0;
-            this.labelControl6.Text = "Toplam Kelime Sayısı:";
+            this.labelControl6.Text = "Doğru:";
             // 
             // labelControl5
             // 
-            this.labelControl5.Location = new System.Drawing.Point(13, 29);
+            this.labelControl5.Location = new System.Drawing.Point(13, 25);
             this.labelControl5.Name = "labelControl5";
-            this.labelControl5.Size = new System.Drawing.Size(101, 13);
+            this.labelControl5.Size = new System.Drawing.Size(78, 13);
             this.labelControl5.TabIndex = 0;
-            this.labelControl5.Text = "Toplam Kelime Sayısı:";
+            this.labelControl5.Text = "Seviye 1 Kelime:";
             // 
             // groupControl4
             // 
@@ -783,20 +802,87 @@ namespace Kelime_Ezber_Sistemi
             this.timer_soruArası.Interval = 500;
             this.timer_soruArası.Tick += new System.EventHandler(this.timer_soruArası_Tick);
             // 
-            // btn_kelimeEkle
+            // labelControl8
             // 
-            this.btn_kelimeEkle.Location = new System.Drawing.Point(441, 19);
-            this.btn_kelimeEkle.Name = "btn_kelimeEkle";
-            this.btn_kelimeEkle.Size = new System.Drawing.Size(42, 23);
-            this.btn_kelimeEkle.TabIndex = 10;
-            this.btn_kelimeEkle.Text = "Ekle";
+            this.labelControl8.Location = new System.Drawing.Point(15, 42);
+            this.labelControl8.Name = "labelControl8";
+            this.labelControl8.Size = new System.Drawing.Size(31, 13);
+            this.labelControl8.TabIndex = 0;
+            this.labelControl8.Text = "Yanlış:";
+            // 
+            // lbl_yanlış_s1
+            // 
+            this.lbl_yanlış_s1.Location = new System.Drawing.Point(54, 42);
+            this.lbl_yanlış_s1.Name = "lbl_yanlış_s1";
+            this.lbl_yanlış_s1.Size = new System.Drawing.Size(6, 13);
+            this.lbl_yanlış_s1.TabIndex = 0;
+            this.lbl_yanlış_s1.Text = "0";
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Location = new System.Drawing.Point(13, 45);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(78, 13);
+            this.labelControl3.TabIndex = 0;
+            this.labelControl3.Text = "Seviye 2 Kelime:";
+            // 
+            // groupControl6
+            // 
+            this.groupControl6.Controls.Add(this.lbl_yanlış_s1);
+            this.groupControl6.Controls.Add(this.labelControl6);
+            this.groupControl6.Controls.Add(this.labelControl8);
+            this.groupControl6.Controls.Add(this.lbl_doğru_s1);
+            this.groupControl6.GroupStyle = DevExpress.Utils.GroupStyle.Light;
+            this.groupControl6.Location = new System.Drawing.Point(264, 29);
+            this.groupControl6.Name = "groupControl6";
+            this.groupControl6.Size = new System.Drawing.Size(146, 63);
+            this.groupControl6.TabIndex = 8;
+            this.groupControl6.Text = "Kelime Bilgisi";
+            // 
+            // lbl_toplamSayı_s2
+            // 
+            this.lbl_toplamSayı_s2.Location = new System.Drawing.Point(97, 45);
+            this.lbl_toplamSayı_s2.Name = "lbl_toplamSayı_s2";
+            this.lbl_toplamSayı_s2.Size = new System.Drawing.Size(6, 13);
+            this.lbl_toplamSayı_s2.TabIndex = 0;
+            this.lbl_toplamSayı_s2.Text = "0";
+            // 
+            // ch_fiiller
+            // 
+            this.ch_fiiller.Location = new System.Drawing.Point(110, 453);
+            this.ch_fiiller.Name = "ch_fiiller";
+            this.ch_fiiller.Size = new System.Drawing.Size(75, 23);
+            this.ch_fiiller.TabIndex = 9;
+            this.ch_fiiller.Text = "Fiiller";
+            this.ch_fiiller.CheckedChanged += new System.EventHandler(this.ch_fiiller_CheckedChanged);
+            // 
+            // ch_favoriler
+            // 
+            this.ch_favoriler.Location = new System.Drawing.Point(191, 453);
+            this.ch_favoriler.Name = "ch_favoriler";
+            this.ch_favoriler.Size = new System.Drawing.Size(75, 23);
+            this.ch_favoriler.TabIndex = 9;
+            this.ch_favoriler.Text = "Favoriler";
+            this.ch_favoriler.CheckedChanged += new System.EventHandler(this.ch_favoriler_CheckedChanged);
+            // 
+            // ch_yanlışlar
+            // 
+            this.ch_yanlışlar.Location = new System.Drawing.Point(270, 453);
+            this.ch_yanlışlar.Name = "ch_yanlışlar";
+            this.ch_yanlışlar.Size = new System.Drawing.Size(75, 23);
+            this.ch_yanlışlar.TabIndex = 9;
+            this.ch_yanlışlar.Text = "Yanlışlar";
+            this.ch_yanlışlar.CheckedChanged += new System.EventHandler(this.ch_yanlışlar_CheckedChanged);
             // 
             // Form_AnaSayfa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(563, 643);
+            this.ClientSize = new System.Drawing.Size(478, 486);
+            this.Controls.Add(this.ch_yanlışlar);
+            this.Controls.Add(this.ch_favoriler);
             this.Controls.Add(this.xtraTabControl_AnaSayfa);
+            this.Controls.Add(this.ch_fiiller);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form_AnaSayfa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -842,6 +928,9 @@ namespace Kelime_Ezber_Sistemi
             ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl18)).EndInit();
             this.groupControl18.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
+            this.groupControl6.ResumeLayout(false);
+            this.groupControl6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -889,8 +978,8 @@ namespace Kelime_Ezber_Sistemi
         private DevExpress.XtraEditors.SimpleButton simpleButton3;
         private DevExpress.XtraEditors.SimpleButton simpleButton4;
         private DevExpress.XtraEditors.GroupControl groupControl5;
-        private DevExpress.XtraEditors.LabelControl labelControl7;
-        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.LabelControl lbl_doğru_s1;
+        private DevExpress.XtraEditors.LabelControl lbl_toplamSayı_s1;
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private DevExpress.XtraEditors.LabelControl labelControl5;
         private DevExpress.XtraEditors.GroupControl groupControl1;
@@ -914,6 +1003,14 @@ namespace Kelime_Ezber_Sistemi
         private DevExpress.XtraEditors.LabelControl lbl_sayı_S2;
         private DevExpress.XtraEditors.LabelControl lbl_sayı_S1;
         private DevExpress.XtraEditors.SimpleButton btn_kelimeEkle;
+        private DevExpress.XtraEditors.LabelControl lbl_yanlış_s1;
+        private DevExpress.XtraEditors.LabelControl labelControl8;
+        private DevExpress.XtraEditors.GroupControl groupControl6;
+        private DevExpress.XtraEditors.LabelControl lbl_toplamSayı_s2;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.CheckButton ch_fiiller;
+        private DevExpress.XtraEditors.CheckButton ch_favoriler;
+        private DevExpress.XtraEditors.CheckButton ch_yanlışlar;
     }
 }
 
