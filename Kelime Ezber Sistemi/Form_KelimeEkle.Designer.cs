@@ -39,6 +39,7 @@ namespace Kelime_Ezber_Sistemi
             this.lbl_dosyaİsmi = new DevExpress.XtraEditors.LabelControl();
             this.btn_yükle = new DevExpress.XtraEditors.SimpleButton();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.lbl_yüzde = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl_kelimeEkle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
@@ -125,11 +126,20 @@ namespace Kelime_Ezber_Sistemi
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // lbl_yüzde
+            // 
+            this.lbl_yüzde.Location = new System.Drawing.Point(607, 12);
+            this.lbl_yüzde.Name = "lbl_yüzde";
+            this.lbl_yüzde.Size = new System.Drawing.Size(6, 13);
+            this.lbl_yüzde.TabIndex = 3;
+            this.lbl_yüzde.Text = "0";
+            // 
             // Form_KelimeEkle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(697, 646);
+            this.Controls.Add(this.lbl_yüzde);
             this.Controls.Add(this.lbl_dosyaİsmi);
             this.Controls.Add(this.btn_yükle);
             this.Controls.Add(this.btn_gözat);
@@ -155,5 +165,6 @@ namespace Kelime_Ezber_Sistemi
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private DevExpress.XtraEditors.LabelControl lbl_yüzde;
     }
 }

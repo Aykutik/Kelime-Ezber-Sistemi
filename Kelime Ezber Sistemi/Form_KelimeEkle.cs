@@ -52,6 +52,9 @@ namespace Kelime_Ezber_Sistemi
 
             for (int i = 0; i < gridView1.RowCount; i++)
             {
+                int yüzde = (i / gridView1.RowCount) * 100;
+                lbl_yüzde.Text = "" + yüzde + "";
+
                 //Yeni Eklenecek Kayıt
                 string sorgu = "Insert into kullanıcı1 (TR,EN,tür,alan)" +     
                 " values " +
@@ -64,8 +67,9 @@ namespace Kelime_Ezber_Sistemi
 
                 bağlantı.Open();
                 komut.ExecuteNonQuery();
-                bağlantı.Close();
+                bağlantı.Close();                
             }
+            MessageBox.Show("Yükleme Tamamlandı");
         }
 
         private void btn_yükle_Click(object sender, EventArgs e)

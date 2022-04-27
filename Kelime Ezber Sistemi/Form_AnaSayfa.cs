@@ -62,8 +62,8 @@ namespace Kelime_Ezber_Sistemi
             MySqlDataReader oku_dk2 = komut_dk2.ExecuteReader();
             while (oku_dk2.Read())
             {
-                lbl_sayı_S2.Text = "" + oku_dk2[0].ToString() + " kelime / 20";
-                if (Convert.ToInt32(oku_dk2[0].ToString()) < 20)
+                lbl_sayı_S2.Text = "" + oku_dk2[0].ToString() + " kelime / 30";
+                if (Convert.ToInt32(oku_dk2[0].ToString()) < 30)
                 {
                     XTC_AnaSayfa_Seviye2.PageVisible = false;
                     btn_Seviye2.Enabled = false;
@@ -71,7 +71,7 @@ namespace Kelime_Ezber_Sistemi
                 else
                 {
                     XTC_AnaSayfa_Seviye2.PageVisible = true;
-                    btn_Seviye2.Enabled = false;
+                    btn_Seviye2.Enabled = true;
                 }
             }
             oku_dk2.Close();
@@ -84,9 +84,9 @@ namespace Kelime_Ezber_Sistemi
             MySqlDataReader oku_dk3 = komut_dk3.ExecuteReader();
             while (oku_dk3.Read())
             {
-                lbl_sayı_S3.Text = "" + oku_dk3[0].ToString() + " kelime / 30";
+                lbl_sayı_S3.Text = "" + oku_dk3[0].ToString() + " kelime / 40";
 
-                if (Convert.ToInt32(oku_dk3[0].ToString()) < 30)
+                if (Convert.ToInt32(oku_dk3[0].ToString()) < 40)
                 {
                     XTC_AnaSayfa_Seviye3.PageVisible = false;
                     btn_Seviye3.Enabled = false;
@@ -107,8 +107,8 @@ namespace Kelime_Ezber_Sistemi
             MySqlDataReader oku_dk4 = komut_dk4.ExecuteReader();
             while (oku_dk4.Read())
             {
-                lbl_sayı_S4.Text = "" + oku_dk4[0].ToString() + " kelime / 40";
-                if (Convert.ToInt32(oku_dk4[0].ToString()) < 40)
+                lbl_sayı_S4.Text = "" + oku_dk4[0].ToString() + " kelime / 50";
+                if (Convert.ToInt32(oku_dk4[0].ToString()) < 50)
                 {
                     XTC_AnaSayfa_Seviye4.PageVisible = false;
                     btn_Seviye4.Enabled = false;
@@ -129,8 +129,8 @@ namespace Kelime_Ezber_Sistemi
             MySqlDataReader oku_dk5 = komut_dk5.ExecuteReader();
             while (oku_dk5.Read())
             {
-                lbl_sayı_S5.Text = "" + oku_dk5[0].ToString() + " kelime / 50";
-                if (Convert.ToInt32(oku_dk5[0].ToString()) < 50)
+                lbl_sayı_S5.Text = "" + oku_dk5[0].ToString() + " kelime / 70";
+                if (Convert.ToInt32(oku_dk5[0].ToString()) < 70)
                 {
                     XTC_AnaSayfa_Seviye5.PageVisible = false;
                     btn_Seviye5.Enabled = false;
@@ -271,9 +271,37 @@ namespace Kelime_Ezber_Sistemi
             }
             else if (ch_yanlışlar.Checked == true)
             {
-                komut.CommandText = "SELECT *FROM kullanıcı1 where seviye=1 ORDER BY yanlış DESc, RAND()";
+                komut.CommandText = "SELECT *FROM kullanıcı1 where seviye=1 ORDER BY yanlış DESC, RAND()";
+                //komut.CommandText = "SELECT *FROM kullanıcı1 where seviye=1 ORDER BY yanlış ASC, RAND()";
             }
-            else
+            else if (ch_duyguVeHisler.Checked == true)
+            {
+
+            }
+            else if (ch_yanlışlar.Checked == true)
+            {
+
+            }
+            else if (ch_yanlışlar.Checked == true)
+            {
+
+            }
+            else if (ch_yanlışlar.Checked == true)
+            {
+
+            }
+            else if (ch_yanlışlar.Checked == true)
+            {
+
+            }
+            else if (ch_yanlışlar.Checked == true)
+            {
+
+            }
+            else if (ch_yanlışlar.Checked == true)
+            {
+
+            }
             {
                 komut.CommandText = "SELECT *FROM kullanıcı1 where seviye=1 ORDER BY RAND()";
             }
@@ -380,6 +408,7 @@ namespace Kelime_Ezber_Sistemi
             }
             
         }
+
         #region CevapKontrol
         
         private void s1_şık_1_Click(object sender, EventArgs e)
@@ -493,17 +522,107 @@ namespace Kelime_Ezber_Sistemi
         {
             ch_favoriler.Checked = false;
             ch_yanlışlar.Checked = false;
+            ch_isimler.Checked = false;
+            ch_edatlar.Checked = false;
+            ch_gıda.Checked = false;
+            ch_işHayatı.Checked = false;
+            ch_duyguVeHisler.Checked = false;
+            ch_insanVucudu.Checked = false;
         }
 
         private void ch_favoriler_CheckedChanged(object sender, EventArgs e)
         {
-            ch_fiiller.Checked = false;
             ch_yanlışlar.Checked = false;
+            ch_isimler.Checked = false;
+            ch_edatlar.Checked = false;
+            ch_gıda.Checked = false;
+            ch_işHayatı.Checked = false;
+            ch_duyguVeHisler.Checked = false;
+            ch_insanVucudu.Checked = false;
+            ch_fiiller.Checked = false;
         }
 
         private void ch_yanlışlar_CheckedChanged(object sender, EventArgs e)
         {
             ch_favoriler.Checked = false;
+            ch_isimler.Checked = false;
+            ch_edatlar.Checked = false;
+            ch_gıda.Checked = false;
+            ch_işHayatı.Checked = false;
+            ch_duyguVeHisler.Checked = false;
+            ch_insanVucudu.Checked = false;
+            ch_fiiller.Checked = false;
+        }
+
+        private void ch_isimler_CheckedChanged(object sender, EventArgs e)
+        {
+            ch_favoriler.Checked = false;
+            ch_yanlışlar.Checked = false;
+            ch_edatlar.Checked = false;
+            ch_gıda.Checked = false;
+            ch_işHayatı.Checked = false;
+            ch_duyguVeHisler.Checked = false;
+            ch_insanVucudu.Checked = false;
+            ch_fiiller.Checked = false;
+        }
+
+        private void ch_edatlar_CheckedChanged(object sender, EventArgs e)
+        {
+            ch_favoriler.Checked = false;
+            ch_yanlışlar.Checked = false;
+            ch_isimler.Checked = false;
+            ch_gıda.Checked = false;
+            ch_işHayatı.Checked = false;
+            ch_duyguVeHisler.Checked = false;
+            ch_insanVucudu.Checked = false;
+            ch_fiiller.Checked = false;
+        }
+
+        private void ch_gıda_CheckedChanged(object sender, EventArgs e)
+        {
+            ch_favoriler.Checked = false;
+            ch_yanlışlar.Checked = false;
+            ch_isimler.Checked = false;
+            ch_edatlar.Checked = false;
+            ch_işHayatı.Checked = false;
+            ch_duyguVeHisler.Checked = false;
+            ch_insanVucudu.Checked = false;
+            ch_fiiller.Checked = false;
+        }
+
+        private void ch_işHayatı_CheckedChanged(object sender, EventArgs e)
+        {
+            ch_favoriler.Checked = false;
+            ch_yanlışlar.Checked = false;
+            ch_isimler.Checked = false;
+            ch_edatlar.Checked = false;
+            ch_gıda.Checked = false;
+            ch_duyguVeHisler.Checked = false;
+            ch_insanVucudu.Checked = false;
+            ch_fiiller.Checked = false;
+        }
+
+        private void ch_duyguVeHisler_CheckedChanged(object sender, EventArgs e)
+        {
+            ch_favoriler.Checked = false;
+            ch_yanlışlar.Checked = false;
+            ch_isimler.Checked = false;
+            ch_edatlar.Checked = false;
+            ch_gıda.Checked = false;
+            ch_işHayatı.Checked = false;
+            ch_insanVucudu.Checked = false;
+            ch_fiiller.Checked = false;
+        }
+
+        private void ch_insanVucudu_CheckedChanged(object sender, EventArgs e)
+        {
+            ch_favoriler.Checked = false;
+            ch_yanlışlar.Checked = false;
+            ch_isimler.Checked = false;
+            ch_edatlar.Checked = false;
+            ch_gıda.Checked = false;
+            ch_işHayatı.Checked = false;
+            ch_duyguVeHisler.Checked = false;
             ch_fiiller.Checked = false;
         }
         #endregion
@@ -542,12 +661,10 @@ namespace Kelime_Ezber_Sistemi
             yeniSoru();
         }
 
-        private void btn_kelimeEkle_Click(object sender, EventArgs e)
+        private void btn_kelimeEkle_Click_1(object sender, EventArgs e)
         {
             Form_KelimeEkle frm = new Form_KelimeEkle();
             frm.ShowDialog();
         }
-
-        
     }
 }
