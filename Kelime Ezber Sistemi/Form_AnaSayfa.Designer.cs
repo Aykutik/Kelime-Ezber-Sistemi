@@ -454,6 +454,7 @@ namespace Kelime_Ezber_Sistemi
             this.s1_şık_3.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.None;
             this.s1_şık_3.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.s1_şık_3.Location = new System.Drawing.Point(256, 221);
+            this.s1_şık_3.LookAndFeel.SkinName = "VS2010";
             this.s1_şık_3.LookAndFeel.UseDefaultLookAndFeel = false;
             this.s1_şık_3.Name = "s1_şık_3";
             this.s1_şık_3.Size = new System.Drawing.Size(99, 30);
@@ -470,6 +471,7 @@ namespace Kelime_Ezber_Sistemi
             this.s1_şık_2.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.None;
             this.s1_şık_2.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.s1_şık_2.Location = new System.Drawing.Point(142, 221);
+            this.s1_şık_2.LookAndFeel.SkinName = "VS2010";
             this.s1_şık_2.LookAndFeel.UseDefaultLookAndFeel = false;
             this.s1_şık_2.Name = "s1_şık_2";
             this.s1_şık_2.Size = new System.Drawing.Size(99, 30);
@@ -486,6 +488,7 @@ namespace Kelime_Ezber_Sistemi
             this.s1_şık_1.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.None;
             this.s1_şık_1.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.s1_şık_1.Location = new System.Drawing.Point(28, 221);
+            this.s1_şık_1.LookAndFeel.SkinName = "VS2010";
             this.s1_şık_1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.s1_şık_1.Name = "s1_şık_1";
             this.s1_şık_1.Size = new System.Drawing.Size(99, 30);
@@ -515,6 +518,8 @@ namespace Kelime_Ezber_Sistemi
             this.s1_kelime.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.Word;
             this.s1_kelime.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.s1_kelime.Location = new System.Drawing.Point(28, 44);
+            this.s1_kelime.LookAndFeel.SkinName = "Office 2010 Silver";
+            this.s1_kelime.LookAndFeel.UseDefaultLookAndFeel = false;
             this.s1_kelime.Name = "s1_kelime";
             this.s1_kelime.Size = new System.Drawing.Size(327, 162);
             this.s1_kelime.TabIndex = 1;
@@ -525,7 +530,7 @@ namespace Kelime_Ezber_Sistemi
             this.XTC_AnaSayfa_Seviye2.Controls.Add(this.groupControl1);
             this.XTC_AnaSayfa_Seviye2.Controls.Add(this.groupControl7);
             this.XTC_AnaSayfa_Seviye2.Name = "XTC_AnaSayfa_Seviye2";
-            this.XTC_AnaSayfa_Seviye2.Size = new System.Drawing.Size(436, 408);
+            this.XTC_AnaSayfa_Seviye2.Size = new System.Drawing.Size(443, 389);
             this.XTC_AnaSayfa_Seviye2.Text = "SEVİYE 2";
             // 
             // groupControl1
@@ -623,7 +628,7 @@ namespace Kelime_Ezber_Sistemi
             this.XTC_AnaSayfa_Seviye3.Controls.Add(this.groupControl2);
             this.XTC_AnaSayfa_Seviye3.Controls.Add(this.groupControl3);
             this.XTC_AnaSayfa_Seviye3.Name = "XTC_AnaSayfa_Seviye3";
-            this.XTC_AnaSayfa_Seviye3.Size = new System.Drawing.Size(436, 410);
+            this.XTC_AnaSayfa_Seviye3.Size = new System.Drawing.Size(443, 389);
             this.XTC_AnaSayfa_Seviye3.Text = "SEVİYE 3";
             // 
             // groupControl2
@@ -721,7 +726,7 @@ namespace Kelime_Ezber_Sistemi
             this.XTC_AnaSayfa_Seviye4.Controls.Add(this.groupControl13);
             this.XTC_AnaSayfa_Seviye4.Controls.Add(this.groupControl15);
             this.XTC_AnaSayfa_Seviye4.Name = "XTC_AnaSayfa_Seviye4";
-            this.XTC_AnaSayfa_Seviye4.Size = new System.Drawing.Size(436, 410);
+            this.XTC_AnaSayfa_Seviye4.Size = new System.Drawing.Size(443, 389);
             this.XTC_AnaSayfa_Seviye4.Text = "SEVİYE 4";
             // 
             // groupControl13
@@ -796,7 +801,7 @@ namespace Kelime_Ezber_Sistemi
             this.XTC_AnaSayfa_Seviye5.Controls.Add(this.groupControl16);
             this.XTC_AnaSayfa_Seviye5.Controls.Add(this.groupControl18);
             this.XTC_AnaSayfa_Seviye5.Name = "XTC_AnaSayfa_Seviye5";
-            this.XTC_AnaSayfa_Seviye5.Size = new System.Drawing.Size(436, 410);
+            this.XTC_AnaSayfa_Seviye5.Size = new System.Drawing.Size(443, 389);
             this.XTC_AnaSayfa_Seviye5.Text = "SEVİYE 5";
             // 
             // groupControl16
@@ -869,11 +874,12 @@ namespace Kelime_Ezber_Sistemi
             // XTC_AnaSayfa_KalıcıHafıza
             // 
             this.XTC_AnaSayfa_KalıcıHafıza.Name = "XTC_AnaSayfa_KalıcıHafıza";
-            this.XTC_AnaSayfa_KalıcıHafıza.Size = new System.Drawing.Size(436, 410);
+            this.XTC_AnaSayfa_KalıcıHafıza.Size = new System.Drawing.Size(443, 389);
             this.XTC_AnaSayfa_KalıcıHafıza.Text = "KALICI HAFIZA";
             // 
             // timer_soruArası
             // 
+            this.timer_soruArası.Interval = 1000;
             this.timer_soruArası.Tick += new System.EventHandler(this.timer_soruArası_Tick);
             // 
             // ch_fiiller
