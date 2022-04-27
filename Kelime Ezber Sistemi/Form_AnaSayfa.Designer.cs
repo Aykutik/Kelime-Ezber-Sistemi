@@ -874,7 +874,6 @@ namespace Kelime_Ezber_Sistemi
             // 
             // timer_soruArası
             // 
-            this.timer_soruArası.Interval = 200;
             this.timer_soruArası.Tick += new System.EventHandler(this.timer_soruArası_Tick);
             // 
             // ch_fiiller

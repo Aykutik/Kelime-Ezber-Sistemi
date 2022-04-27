@@ -21,11 +21,13 @@ namespace Kelime_Ezber_Sistemi
 
         string sayıKontrolleri(int seviye)
         {
+            MySqlConnection bağlantı = new MySqlConnection(bağlantıadresi);
             string yazı = "";
             MySqlCommand komut_dk1 = new MySqlCommand("select COUNT(*) from kullanıcı1 " +
-                            "where seviye=@seviye", blg.bağlantı());
+                            "where seviye=@seviye", bağlantı);
             komut_dk1.Parameters.Clear();
             komut_dk1.Parameters.AddWithValue("@seviye", seviye);
+            bağlantı.Open();
             komut_dk1.ExecuteNonQuery();
             MySqlDataReader oku_dk1 = komut_dk1.ExecuteReader();
             while (oku_dk1.Read())
@@ -33,18 +35,22 @@ namespace Kelime_Ezber_Sistemi
                 yazı = "" + oku_dk1[0].ToString() + " kelime";
             }
             oku_dk1.Close();
+            bağlantı.Close();
 
             return yazı;
         }
 
+        public string bağlantıadresi = "server=eu-cdbr-west-02.cleardb.net;user id=bdbb59f8e5a999; database=heroku_35277f60d273b6a; Pwd=9e92108f; Charset = utf8";
+
         private void Form_AnaSayfa_Load(object sender, EventArgs e)
         {
             #region Seviye Kontrolleri
-
+            MySqlConnection bağlantı = new MySqlConnection(bağlantıadresi);
             MySqlCommand komut_dk1 = new MySqlCommand("select COUNT(*) from kullanıcı1 " +
-                            "where seviye=@seviye", blg.bağlantı());
+                            "where seviye=@seviye", bağlantı);
             komut_dk1.Parameters.Clear();
             komut_dk1.Parameters.AddWithValue("@seviye", 1);
+            bağlantı.Open();
             komut_dk1.ExecuteNonQuery();
             MySqlDataReader oku_dk1 = komut_dk1.ExecuteReader();
             while (oku_dk1.Read())
@@ -53,11 +59,13 @@ namespace Kelime_Ezber_Sistemi
                 lbl_toplamSayı_s1.Text = oku_dk1[0].ToString();
             }
             oku_dk1.Close();
+            bağlantı.Close();
 
             MySqlCommand komut_dk2 = new MySqlCommand("select COUNT(*) from kullanıcı1 " +
-                            "where seviye=@seviye", blg.bağlantı());
+                            "where seviye=@seviye", bağlantı);
             komut_dk2.Parameters.Clear();
             komut_dk2.Parameters.AddWithValue("@seviye", 2);
+            bağlantı.Open();
             komut_dk2.ExecuteNonQuery();
             MySqlDataReader oku_dk2 = komut_dk2.ExecuteReader();
             while (oku_dk2.Read())
@@ -75,11 +83,13 @@ namespace Kelime_Ezber_Sistemi
                 }
             }
             oku_dk2.Close();
+            bağlantı.Close();
 
             MySqlCommand komut_dk3 = new MySqlCommand("select COUNT(*) from kullanıcı1 " +
-                            "where seviye=@seviye", blg.bağlantı());
+                            "where seviye=@seviye", bağlantı);
             komut_dk3.Parameters.Clear();
             komut_dk3.Parameters.AddWithValue("@seviye", 3);
+            bağlantı.Open();
             komut_dk3.ExecuteNonQuery();
             MySqlDataReader oku_dk3 = komut_dk3.ExecuteReader();
             while (oku_dk3.Read())
@@ -98,11 +108,13 @@ namespace Kelime_Ezber_Sistemi
                 }
             }
             oku_dk3.Close();
+            bağlantı.Close();
 
             MySqlCommand komut_dk4 = new MySqlCommand("select COUNT(*) from kullanıcı1 " +
-                            "where seviye=@seviye", blg.bağlantı());
+                            "where seviye=@seviye", bağlantı);
             komut_dk4.Parameters.Clear();
             komut_dk4.Parameters.AddWithValue("@seviye", 4);
+            bağlantı.Open();
             komut_dk4.ExecuteNonQuery();
             MySqlDataReader oku_dk4 = komut_dk4.ExecuteReader();
             while (oku_dk4.Read())
@@ -120,11 +132,13 @@ namespace Kelime_Ezber_Sistemi
                 }
             }
             oku_dk4.Close();
+            bağlantı.Close();
 
             MySqlCommand komut_dk5 = new MySqlCommand("select COUNT(*) from kullanıcı1 " +
-                            "where seviye=@seviye", blg.bağlantı());
+                            "where seviye=@seviye", bağlantı);
             komut_dk5.Parameters.Clear();
             komut_dk5.Parameters.AddWithValue("@seviye", 5);
+            bağlantı.Open();
             komut_dk5.ExecuteNonQuery();
             MySqlDataReader oku_dk5 = komut_dk5.ExecuteReader();
             while (oku_dk5.Read())
@@ -142,11 +156,13 @@ namespace Kelime_Ezber_Sistemi
                 }
             }
             oku_dk5.Close();
+            bağlantı.Close();
 
             MySqlCommand komut_dk6 = new MySqlCommand("select COUNT(*) from kullanıcı1 " +
-                            "where seviye=@seviye", blg.bağlantı());
+                            "where seviye=@seviye", bağlantı);
             komut_dk6.Parameters.Clear();
             komut_dk6.Parameters.AddWithValue("@seviye", 6);
+            bağlantı.Open();
             komut_dk6.ExecuteNonQuery();
             MySqlDataReader oku_dk6 = komut_dk6.ExecuteReader();
             while (oku_dk6.Read())
@@ -154,12 +170,12 @@ namespace Kelime_Ezber_Sistemi
                 lbl_sayı_Kalıcı.Text = ""+ oku_dk6[0].ToString() + " kelime";
             }
             oku_dk6.Close();
+            bağlantı.Close();
             #endregion
         }
 
         private void yeniSoru()
         {
-
             timer_soruArası.Stop();
 
             if (xtraTabControl_AnaSayfa.SelectedTabPage == XTC_AnaSayfa_Seviye1)
@@ -185,31 +201,41 @@ namespace Kelime_Ezber_Sistemi
         #region Voidler
         private void görünürlükArttır(string kelimeid, string gösterim)
         {
+            MySqlConnection bağlantı = new MySqlConnection(bağlantıadresi);
             MySqlCommand komut_a2 = new MySqlCommand("update kullanıcı1 " +
-                     "set seviye_gösterim=@seviye_gösterim where id=@id", blg.bağlantı());
+                     "set seviye_gösterim=@seviye_gösterim where id=@id", bağlantı);
             komut_a2.Parameters.Clear();
             komut_a2.Parameters.AddWithValue("@id", kelimeid);
             komut_a2.Parameters.AddWithValue("@seviye_gösterim", Convert.ToInt32(gösterim) + 1);
+            bağlantı.Open();
+            komut_a2.ExecuteNonQuery();
+            bağlantı.Close();
         }
 
         private void doğruCevap(string seviye, string kelimeid, string doğru)
         {
+            MySqlConnection bağlantı = new MySqlConnection(bağlantıadresi);
             MySqlCommand komut_a2 = new MySqlCommand("update kullanıcı1 " +
-                                 "set seviye=@seviye, doğru=@doğru where id=@id", blg.bağlantı());
+                                 "set seviye=@seviye, doğru=@doğru where id=@id", bağlantı);
             komut_a2.Parameters.Clear();
             komut_a2.Parameters.AddWithValue("@id", kelimeid);
             komut_a2.Parameters.AddWithValue("@seviye", Convert.ToInt32(seviye) + 1);
             komut_a2.Parameters.AddWithValue("@doğru", Convert.ToInt32(doğru) + 1);
+            bağlantı.Open();
             komut_a2.ExecuteNonQuery();
+            bağlantı.Close();
         }
         private void yanlışCevapS1(string kelimeid, string yanlış)
         {
+            MySqlConnection bağlantı = new MySqlConnection(bağlantıadresi);
             MySqlCommand komut_a2 = new MySqlCommand("update kullanıcı1 " +
-                     "set yanlış=@yanlış where id=@id", blg.bağlantı());
+                     "set yanlış=@yanlış where id=@id", bağlantı);
             komut_a2.Parameters.Clear();
             komut_a2.Parameters.AddWithValue("@id", kelimeid);
             komut_a2.Parameters.AddWithValue("@yanlış", Convert.ToInt32(yanlış) + 1);
+            bağlantı.Open();
             komut_a2.ExecuteNonQuery();
+            bağlantı.Close();
         }
         #endregion
 
@@ -255,9 +281,8 @@ namespace Kelime_Ezber_Sistemi
         string s1_alan;
         private void s1_rasgeleKelime()
         {
-            lbl_toplamSayı_s1.Text = sayıKontrolleri(1);
-            lbl_toplamSayı_s2.Text = sayıKontrolleri(2);
-
+            MySqlConnection bağlantı = new MySqlConnection(bağlantıadresi);
+            
             MySqlCommand komut = new MySqlCommand();
             string tür = "";
             if (ch_fiiller.Checked == true)
@@ -307,9 +332,10 @@ namespace Kelime_Ezber_Sistemi
             }
             komut.Parameters.Clear();
             komut.Parameters.AddWithValue("@tür", tür);
-            komut.Connection = blg.bağlantı();
+            komut.Connection = bağlantı;
             komut.CommandType = CommandType.Text;
             MySqlDataReader dr;
+            bağlantı.Open();
             dr = komut.ExecuteReader();
             if (dr.Read())
             {
@@ -325,11 +351,15 @@ namespace Kelime_Ezber_Sistemi
                 s1_kelime.Text = dr["EN"].ToString();
             }
             dr.Close();
+            bağlantı.Close();
 
             s1_şıkOluşturma();
 
             //Rasgele gelen kelimenin görünürlük puanını +1 yapıyoruz
             görünürlükArttır(s1_kelimeİd, s1_seviye_gösterim);
+
+            lbl_toplamSayı_s1.Text = sayıKontrolleri(1);
+            lbl_toplamSayı_s2.Text = sayıKontrolleri(2);
 
         }
                 
@@ -340,13 +370,13 @@ namespace Kelime_Ezber_Sistemi
             s1_şıklar.Clear();
             s1_şıklar.Add(s1_cevap);
 
+            string komut = "";
             //sonra rasgele kelimeler getiriyoruz ama doğru şık haricinde
-            MySqlCommand komut_şıklar = new MySqlCommand();
             
             if (s1_alan != "" & s1_alan != null)
             {
                 //alan var ise alandan seç
-                komut_şıklar.CommandText = "SELECT *FROM kullanıcı1 where alan=@alan ORDER BY RAND() LIMIT 10";
+                komut = "SELECT *FROM kullanıcı1 where alan=@alan ORDER BY RAND() LIMIT 10";
             }
             else
             {
@@ -354,23 +384,22 @@ namespace Kelime_Ezber_Sistemi
                 if (s1_tür.Text != "" & s1_tür.Text != null)
                 {
                     //tür varsa türden seç o zaman
-                    komut_şıklar.CommandText = "SELECT *FROM kullanıcı1 where tür=@tür ORDER BY RAND() LIMIT 10";
+                    komut = "SELECT *FROM kullanıcı1 where tür=@tür ORDER BY RAND() LIMIT 10";
                 }
                 else
                 {
                     //tür de boş ise kafana göre takıl
-                    komut_şıklar.CommandText = "SELECT *FROM kullanıcı1 ORDER BY RAND() LIMIT 10";
+                    komut = "SELECT *FROM kullanıcı1 ORDER BY RAND() LIMIT 10";
                 }                                
             }
 
-            komut_şıklar.Connection = blg.bağlantı();
-            komut_şıklar.CommandType = CommandType.Text;
+            MySqlConnection bağlantı = new MySqlConnection(bağlantıadresi);
+            MySqlCommand komut_şıklar = new MySqlCommand(komut, bağlantı);
             komut_şıklar.Parameters.Clear();
             komut_şıklar.Parameters.AddWithValue("@tür", s1_tür.Text);
             komut_şıklar.Parameters.AddWithValue("@alan", s1_alan);
-
-            MySqlDataReader dr_şıklar;
-            dr_şıklar = komut_şıklar.ExecuteReader();
+            bağlantı.Open();
+            MySqlDataReader dr_şıklar = komut_şıklar.ExecuteReader();
             for (int i = 0; i < 10; i++)
             {
                 while (dr_şıklar.Read())
@@ -406,7 +435,8 @@ namespace Kelime_Ezber_Sistemi
             {
 
             }
-            
+            bağlantı.Close();
+
         }
 
         #region CevapKontrol
@@ -442,7 +472,7 @@ namespace Kelime_Ezber_Sistemi
                 lbl_toplamSayı_s1.Text = sayıKontrolleri(1);
                 lbl_toplamSayı_s2.Text = sayıKontrolleri(2);
             }
-
+            
             timer_soruArası.Start();
         }        
 
@@ -450,7 +480,6 @@ namespace Kelime_Ezber_Sistemi
         {
             s1_şık_1.Enabled = false;
             s1_şık_3.Enabled = false;
-
             if (s1_şık_2.Text == s1_cevap)
             {
                 s1_şık_2.Appearance.BackColor = Color.Green;
@@ -478,7 +507,8 @@ namespace Kelime_Ezber_Sistemi
                 lbl_toplamSayı_s1.Text = sayıKontrolleri(1);
                 lbl_toplamSayı_s2.Text = sayıKontrolleri(2);
             }
-            timer_soruArası.Start();
+            
+            timer_soruArası.Start();            
         }
 
         private void s1_şık_3_Click(object sender, EventArgs e)
@@ -633,26 +663,32 @@ namespace Kelime_Ezber_Sistemi
 
         private void s1_btnFavori_CheckedChanged(object sender, EventArgs e)
         {
+            MySqlConnection bağlantı = new MySqlConnection(bağlantıadresi);
             MySqlCommand komut_a2 = new MySqlCommand("update kullanıcı1 " +
-                     "set favori=@favori where id=@id", blg.bağlantı());
+                     "set favori=@favori where id=@id", bağlantı);
             komut_a2.Parameters.Clear();
             komut_a2.Parameters.AddWithValue("@id", s1_kelimeİd);
             komut_a2.Parameters.AddWithValue("@favori", s1_btnFavori.EditValue);
+            bağlantı.Open();
             komut_a2.ExecuteNonQuery();
+            bağlantı.Close();
         }
 
         private void simpleButton9_Click(object sender, EventArgs e)
         {
+            MySqlConnection bağlantı = new MySqlConnection(bağlantıadresi);
             DialogResult dialog = new DialogResult();
             dialog = MessageBox.Show("Bu kelime zaten ezberimde diyorsun yani?", "KALICI HAFIZA", MessageBoxButtons.YesNo);
             if (dialog == DialogResult.Yes)
             {
                 MySqlCommand komut_a2 = new MySqlCommand("update kullanıcı1 " +
-                     "set seviye=@seviye where id=@id", blg.bağlantı());
+                     "set seviye=@seviye where id=@id", bağlantı);
                 komut_a2.Parameters.Clear();
                 komut_a2.Parameters.AddWithValue("@id", s1_kelimeİd);
                 komut_a2.Parameters.AddWithValue("@seviye", 6);
+                bağlantı.Open();
                 komut_a2.ExecuteNonQuery();
+                bağlantı.Close();
             }
         }
 
