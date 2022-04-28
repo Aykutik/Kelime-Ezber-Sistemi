@@ -46,10 +46,10 @@ namespace Kelime_Ezber_Sistemi
             // 
             // gridControl_kelimeEkle
             // 
-            this.gridControl_kelimeEkle.Location = new System.Drawing.Point(12, 47);
+            this.gridControl_kelimeEkle.Location = new System.Drawing.Point(12, 56);
             this.gridControl_kelimeEkle.MainView = this.gridView1;
             this.gridControl_kelimeEkle.Name = "gridControl_kelimeEkle";
-            this.gridControl_kelimeEkle.Size = new System.Drawing.Size(669, 587);
+            this.gridControl_kelimeEkle.Size = new System.Drawing.Size(669, 578);
             this.gridControl_kelimeEkle.TabIndex = 0;
             this.gridControl_kelimeEkle.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -128,9 +128,11 @@ namespace Kelime_Ezber_Sistemi
             // 
             // lbl_yüzde
             // 
-            this.lbl_yüzde.Location = new System.Drawing.Point(607, 12);
+            this.lbl_yüzde.Appearance.Font = new System.Drawing.Font("Tahoma", 7F);
+            this.lbl_yüzde.Appearance.Options.UseFont = true;
+            this.lbl_yüzde.Location = new System.Drawing.Point(637, 37);
             this.lbl_yüzde.Name = "lbl_yüzde";
-            this.lbl_yüzde.Size = new System.Drawing.Size(6, 13);
+            this.lbl_yüzde.Size = new System.Drawing.Size(5, 11);
             this.lbl_yüzde.TabIndex = 3;
             this.lbl_yüzde.Text = "0";
             // 
