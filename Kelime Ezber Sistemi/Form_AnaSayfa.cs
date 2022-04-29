@@ -44,7 +44,8 @@ namespace Kelime_Ezber_Sistemi
         public string kullanıcı = "kullanıcı1";
 
         private void Form_AnaSayfa_Load(object sender, EventArgs e)
-        {
+        {           
+
             #region Seviye Kontrolleri
             MySqlConnection bağlantı = new MySqlConnection(bağlantıadresi);
             MySqlCommand komut_dk1 = new MySqlCommand("select COUNT(*) from "+kullanıcı+" " +
@@ -72,13 +73,11 @@ namespace Kelime_Ezber_Sistemi
             {
                 lbl_sayı_S2.Text = "" + oku_dk2[0].ToString() + " kelime / 30";
                 if (Convert.ToInt32(oku_dk2[0].ToString()) < 30)
-                {
-                    XTC_AnaSayfa_Seviye2.PageVisible = false;
+                {                    
                     btn_Seviye2.Enabled = false;
                 }
                 else
                 {
-                    XTC_AnaSayfa_Seviye2.PageVisible = true;
                     btn_Seviye2.Enabled = true;
                 }
             }
@@ -98,12 +97,10 @@ namespace Kelime_Ezber_Sistemi
 
                 if (Convert.ToInt32(oku_dk3[0].ToString()) < 40)
                 {
-                    XTC_AnaSayfa_Seviye3.PageVisible = false;
                     btn_Seviye3.Enabled = false;
                 }
                 else
                 {
-                    XTC_AnaSayfa_Seviye3.PageVisible = true;
                     btn_Seviye3.Enabled = true;
                 }
             }
@@ -122,12 +119,10 @@ namespace Kelime_Ezber_Sistemi
                 lbl_sayı_S4.Text = "" + oku_dk4[0].ToString() + " kelime / 50";
                 if (Convert.ToInt32(oku_dk4[0].ToString()) < 50)
                 {
-                    XTC_AnaSayfa_Seviye4.PageVisible = false;
                     btn_Seviye4.Enabled = false;
                 }
                 else
                 {
-                    XTC_AnaSayfa_Seviye4.PageVisible = true;
                     btn_Seviye4.Enabled = true;
                 }
             }
@@ -146,12 +141,10 @@ namespace Kelime_Ezber_Sistemi
                 lbl_sayı_S5.Text = "" + oku_dk5[0].ToString() + " kelime / 70";
                 if (Convert.ToInt32(oku_dk5[0].ToString()) < 70)
                 {
-                    XTC_AnaSayfa_Seviye5.PageVisible = false;
                     btn_Seviye5.Enabled = false;
                 }
                 else
                 {
-                    XTC_AnaSayfa_Seviye5.PageVisible = true;
                     btn_Seviye5.Enabled = true;
                 }
             }
@@ -210,15 +203,23 @@ namespace Kelime_Ezber_Sistemi
             komut_a2.ExecuteNonQuery();
             bağlantı.Close();
         }
-        private void yanlışCevapS1(string kelimeid, string yanlış)
+        private void yanlışCevap(string kelimeid, string yanlış)
         {
             MySqlConnection bağlantı = new MySqlConnection(bağlantıadresi);
             MySqlCommand komut_a2 = new MySqlCommand("update "+kullanıcı+" " +
-                     "set yanlış=@yanlış,seviye_gösterim=@seviye_gösterim where id=@id", bağlantı);
+                     "set seviye=@seviye,yanlış=@yanlış,seviye_gösterim=@seviye_gösterim where id=@id", bağlantı);
             komut_a2.Parameters.Clear();
             komut_a2.Parameters.AddWithValue("@id", kelimeid);
             komut_a2.Parameters.AddWithValue("@yanlış", Convert.ToInt32(yanlış) + 1);
             komut_a2.Parameters.AddWithValue("@seviye_gösterim", Convert.ToInt32(yanlış) + 1);
+            if (seviye != "1")
+            {
+                komut_a2.Parameters.AddWithValue("@seviye", Convert.ToInt32(seviye)-1);
+            }
+            else
+            {
+                komut_a2.Parameters.AddWithValue("@seviye", Convert.ToInt32(seviye));
+            }
             bağlantı.Open();
             komut_a2.ExecuteNonQuery();
             bağlantı.Close();
@@ -228,91 +229,85 @@ namespace Kelime_Ezber_Sistemi
         #region Ana Sayfa Butonlar
         private void btn_Kısım1_Click(object sender, EventArgs e)
         {
-            xtraTabControl_AnaSayfa.SelectedTabPage = XTC_AnaSayfa_Seviye1;
+            btn_kalıcıHafıza.Visible = true;
+            seviye = "1";
+            xt_ana.SelectedTabPage = xt_anaPage_seviyeler;
+            lbl_seviye.Text = "Seviye 1";
+            xt_şıklar.SelectedTabPage = xt_şıklarPage_seçmeli;
+            yeniSoru();
         }
 
         private void btn_Kısım2_Click(object sender, EventArgs e)
         {
-            xtraTabControl_AnaSayfa.SelectedTabPage = XTC_AnaSayfa_Seviye2;
+            btn_kalıcıHafıza.Visible = true;
+            seviye = "2";
+            xt_ana.SelectedTabPage = xt_anaPage_seviyeler;
+            lbl_seviye.Text = "Seviye 2";
+            xt_şıklar.SelectedTabPage = xt_şıklarPage_seçmeli;
         }
 
         private void btn_Kısım3_Click(object sender, EventArgs e)
         {
-            xtraTabControl_AnaSayfa.SelectedTabPage = XTC_AnaSayfa_Seviye3;
+            btn_kalıcıHafıza.Visible = false;
+            seviye = "3";
+            xt_ana.SelectedTabPage = xt_anaPage_seviyeler;
+            lbl_seviye.Text = "Seviye 3";
+            xt_şıklar.SelectedTabPage = xt_şıklarPage_seçmeli;
         }
 
         private void btn_Kısım4_Click(object sender, EventArgs e)
         {
-            xtraTabControl_AnaSayfa.SelectedTabPage = XTC_AnaSayfa_Seviye4;
+            btn_kalıcıHafıza.Visible = false;
+            seviye = "4";
+            xt_ana.SelectedTabPage = xt_anaPage_seviyeler;
+            lbl_seviye.Text = "Seviye 4";
+            xt_şıklar.SelectedTabPage = xt_şıklarPage_seçmeli;
         }
 
         private void btn_Kısım5_Click(object sender, EventArgs e)
         {
-            xtraTabControl_AnaSayfa.SelectedTabPage = XTC_AnaSayfa_Seviye5;
+            btn_kalıcıHafıza.Visible = false;
+            seviye = "5";
+            xt_ana.SelectedTabPage = xt_anaPage_seviyeler;
+            lbl_seviye.Text = "Seviye 5";
+            xt_şıklar.SelectedTabPage = xt_şıklarPage_yazmalı;
+            hak = 0;
         }
 
-        private void simpleButton1_Click(object sender, EventArgs e)
+        private void btn_kalıcıHafıza_Click(object sender, EventArgs e)
         {
-            xtraTabControl_AnaSayfa.SelectedTabPage = XTC_AnaSayfa_KalıcıHafıza;
+            btn_kalıcıHafıza.Visible = false;
+            seviye = "6";
+            xt_ana.SelectedTabPage = xt_anaPage_kalıcıHafıza;
+            lbl_seviye.Text = "Kalıcı Hafıza";
         }
+
         #endregion
 
         private void yeniSoru()
         {
-            timer_soruArası.Stop();            
+            timer_soruArası.Stop();
+            şık_1.Font = new Font(şık_1.Font.FontFamily, 7, FontStyle.Regular);
+            şık_2.Font = new Font(şık_2.Font.FontFamily, 7, FontStyle.Regular);
+            şık_3.Font = new Font(şık_2.Font.FontFamily, 7, FontStyle.Regular);
+            şık_1.Appearance.BackColor = Color.White;
+            şık_2.Appearance.BackColor = Color.White;
+            şık_3.Appearance.BackColor = Color.White;
+            btn_kelime.Appearance.BackColor = Color.White;
+            şık_1.Enabled = true;
+            şık_2.Enabled = true;
+            şık_3.Enabled = true;
 
-            if (xtraTabControl_AnaSayfa.SelectedTabPage == XTC_AnaSayfa_Seviye1)
-            {
-                s1_şık_1.Font = new Font(s1_şık_1.Font.FontFamily, 7, FontStyle.Regular);
-                s1_şık_2.Font = new Font(s1_şık_2.Font.FontFamily, 7, FontStyle.Regular);
-                s1_şık_3.Font = new Font(s1_şık_2.Font.FontFamily, 7, FontStyle.Regular);
-                s1_şık_1.Appearance.BackColor = Color.White;
-                s1_şık_2.Appearance.BackColor = Color.White;
-                s1_şık_3.Appearance.BackColor = Color.White;
-                s1_kelime.Appearance.BackColor = Color.White;
-                s1_şık_1.Enabled = true;
-                s1_şık_2.Enabled = true;
-                s1_şık_3.Enabled = true;
+            rasgeleKelime();
 
-                rasgeleKelime("1");
-
-                cevap = dr["TR"].ToString();
-                kelimeİd = dr["id"].ToString();
-                seviye = dr["seviye"].ToString();
-                gösterim = dr["seviye_gösterim"].ToString();
-                tür = dr["tür"].ToString();
-                alan = dr["alan"].ToString();
-                favori = dr["favori"].ToString();
-                doğru = dr["doğru"].ToString();
-                yanlış = dr["yanlış"].ToString();
-                
-
-                s1_kelime.Text = kelime;
-                s1_şık_1.Text = şık1;
-                s1_şık_2.Text = şık2;
-                s1_şık_3.Text = şık3;
-                lbl_yanlış_s1.Text
-            }
-            else if (xtraTabControl_AnaSayfa.SelectedTabPage == XTC_AnaSayfa_Seviye2)
-            {
-
-            }
-            else if (xtraTabControl_AnaSayfa.SelectedTabPage == XTC_AnaSayfa_Seviye3)
-            {
-
-            }
-            else if (xtraTabControl_AnaSayfa.SelectedTabPage == XTC_AnaSayfa_Seviye4)
-            {
-
-            }
-            else if (xtraTabControl_AnaSayfa.SelectedTabPage == XTC_AnaSayfa_Seviye5)
-            {
-
-            }
-            else if (xtraTabControl_AnaSayfa.SelectedTabPage == XTC_AnaSayfa_Seviye2)
-            {
-
-            }
+            btn_kelime.Text = kelime;
+            şık_1.Text = şık1;
+            şık_2.Text = şık2;
+            şık_3.Text = şık3;
+            lbl_yanlış_s1.Text = yanlış;
+            lbl_doğru_s1.Text = doğru;
+            s1_btnFavori.EditValue = favori;
+            s1_tür.Text = tür;            
         }
 
         public string cevap = "";
@@ -326,18 +321,15 @@ namespace Kelime_Ezber_Sistemi
         public string yanlış = "";
         public string kelime = "";
 
-
         public string şık1 = "";
         public string şık2 = "";
         public string şık3 = "";
-
 
         List<string> şıklar = new List<string>();
 
         #region SEVİYE-1
 
-
-        private void rasgeleKelime(string _seviye)
+        private void rasgeleKelime()
         {            
             MySqlConnection bağlantı = new MySqlConnection(bağlantıadresi);
             
@@ -346,76 +338,76 @@ namespace Kelime_Ezber_Sistemi
             string _alan = "";
             if (ch_fiiller.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and _tür=@_tür ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and _tür=@_tür ORDER BY RAND()";
                 _tür = "fiil";
             }
             else if (ch_sıfatlar.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and _tür=@_tür ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and _tür=@_tür ORDER BY RAND()";
                 _tür = "sıfat";
             }
             else if (ch_isimler.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and _tür=@_tür ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and _tür=@_tür ORDER BY RAND()";
                 _tür = "isim";
             }
             else if (ch_zamirler.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and _tür=@_tür ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and _tür=@_tür ORDER BY RAND()";
                 _tür = "zamir";
             }
             else if (ch_edatlar.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and _tür=@_tür ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and _tür=@_tür ORDER BY RAND()";
                 _tür = "edat";
             }
             else if (ch_favoriler.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and favori=1 ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and favori=1 ORDER BY RAND()";
             }
             else if (ch_yanlışlar.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" ORDER BY yanlış DESC, RAND()";
-                //komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" ORDER BY yanlış ASC, RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" ORDER BY yanlış DESC, RAND()";
+                //komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" ORDER BY yanlış ASC, RAND()";
             }
             else if (ch_duyguVeHisler.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and alan=@alan ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and alan=@alan ORDER BY RAND()";
                 _alan = "duygu ve his";
             }
             else if (ch_gıda.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and alan=@alan ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and alan=@alan ORDER BY RAND()";
                 _alan = "gıda";
             }
             else if (ch_işHayatı.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and alan=@alan ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and alan=@alan ORDER BY RAND()";
                 _alan = "iş hayatı";
             }
             else if (ch_insanVucudu.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and alan=@alan ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and alan=@alan ORDER BY RAND()";
                 _alan = "insan ve sağlık";
             }
             else if (ch_kıyafet.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and alan=@alan ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and alan=@alan ORDER BY RAND()";
                 _alan = "Kılık Kıyafet";
             }
             else if (ch_c1.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and alan=@alan ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and alan=@alan ORDER BY RAND()";
                 _alan = "c1";
             }
             else if (ch_b1.Checked == true)
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" and alan=@alan ORDER BY RAND()";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" and alan=@alan ORDER BY RAND()";
                 _alan = "b1";
             }
             else            
             {
-                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+_seviye+" ORDER BY RAND() LIMIT 10";
+                komut.CommandText = "SELECT *from "+kullanıcı+" where seviye="+seviye+" ORDER BY RAND() LIMIT 10";
             }
             komut.Parameters.Clear();
             komut.Parameters.AddWithValue("@tür", _tür);
@@ -426,17 +418,26 @@ namespace Kelime_Ezber_Sistemi
             bağlantı.Open();
             dr = komut.ExecuteReader();
             if (dr.Read())
-            {
-                cevap = dr["TR"].ToString();
+            {                                
                 kelimeİd = dr["id"].ToString();
-                seviye = dr["seviye"].ToString();
                 gösterim = dr["seviye_gösterim"].ToString();
                 tür = dr["tür"].ToString();
                 alan = dr["alan"].ToString();
                 favori = dr["favori"].ToString();
                 doğru = dr["doğru"].ToString();
                 yanlış = dr["yanlış"].ToString();
-                kelime = dr["EN"].ToString();
+
+                if (Convert.ToInt32(seviye) < 4) //seviye 4 den küçükse engilizce sorup türkçe cevap isteyecek
+                {
+                    cevap = dr["TR"].ToString();
+                    kelime = dr["EN"].ToString();
+                }
+                else
+                {
+                    cevap = dr["EN"].ToString();
+                    kelime = dr["TR"].ToString();
+                }
+
             }
             dr.Close();
             bağlantı.Close();
@@ -446,9 +447,8 @@ namespace Kelime_Ezber_Sistemi
             //lbl_toplamSayı_s1.Text = sayıKontrolleri(1);
             //lbl_toplamSayı_s2.Text = sayıKontrolleri(2);
         }
-                
 
-        private void şıkOluşturma()
+        private void seçmeliŞıkOluştur()
         {
             //Önce Doğru şıkkı listeye ekliyoruz
             şıklar.Clear();
@@ -456,11 +456,11 @@ namespace Kelime_Ezber_Sistemi
 
             string komut = "";
             //sonra rasgele kelimeler getiriyoruz ama doğru şık haricinde
-            
+
             if (alan != "" & alan != null)
             {
                 //alan var ise alandan seç
-                komut = "SELECT *from "+kullanıcı+" where alan=@alan ORDER BY RAND() LIMIT 5";
+                komut = "SELECT *from " + kullanıcı + " where alan=@alan ORDER BY RAND() LIMIT 5";
             }
             else
             {
@@ -468,13 +468,13 @@ namespace Kelime_Ezber_Sistemi
                 if (tür != "" & tür != null)
                 {
                     //tür varsa türden seç o zaman
-                    komut = "SELECT *from "+kullanıcı+" where tür=@tür ORDER BY RAND() LIMIT 5";
+                    komut = "SELECT *from " + kullanıcı + " where tür=@tür ORDER BY RAND() LIMIT 5";
                 }
                 else
                 {
                     //tür de boş ise kafana göre takıl
-                    komut = "SELECT *from "+kullanıcı+" ORDER BY RAND() LIMIT 5";
-                }                                
+                    komut = "SELECT *from " + kullanıcı + " ORDER BY RAND() LIMIT 5";
+                }
             }
 
             //son iki şık
@@ -487,9 +487,9 @@ namespace Kelime_Ezber_Sistemi
             MySqlDataReader dr_şıklar = komut_şıklar.ExecuteReader();
             while (dr_şıklar.Read() & şıklar.Count < 3)
             {
-               string rasgele = dr_şıklar["TR"].ToString();
-               if (rasgele != şıklar[0])
-               {
+                string rasgele = dr_şıklar["TR"].ToString();
+                if (rasgele != şıklar[0])
+                {
                     if (şıklar.Count > 1)
                     {
                         if (rasgele != şıklar[1])
@@ -501,8 +501,10 @@ namespace Kelime_Ezber_Sistemi
                     {
                         şıklar.Add(rasgele);
                     }
-               }
+                }
             }
+            bağlantı.Close();
+            dr_şıklar.Close();
 
             try
             {
@@ -522,19 +524,45 @@ namespace Kelime_Ezber_Sistemi
                     şık2 = şıklar[sayı2];
                     şıklar.RemoveAt(sayı2);
                     şık3 = şıklar[0];
-                }            
+                }
             }
             catch (Exception)
             {
 
             }
-            bağlantı.Close();
-
         }
+        
+        private void şıkOluşturma()
+        {
+            if (Convert.ToInt32(seviye)<5 & Convert.ToInt32(seviye) > 0)
+            {
+                Random rnd = new Random();
+                int sayı = rnd.Next(1, 6);
+                if (sayı == 5)
+                {
+                    xt_şıklar.SelectedTabPage = xt_şıklarPage_yazmalı;
+                    ts_seçmeliYazmalı.Visible = true;
+                }
+                else
+                {
+                    seçmeliŞıkOluştur();
+                    xt_şıklar.SelectedTabPage = xt_şıklarPage_seçmeli;
+                    ts_seçmeliYazmalı.Visible = true;
+                }
+                
+            }
+            else if (seviye == "5")
+            {
+                xt_şıklar.SelectedTabPage = xt_şıklarPage_yazmalı;
+                ts_seçmeliYazmalı.Visible = false;
+            }
+        }
+
         public string yanıt = "";
+        int yazmalıSonuç = 0;
 
         #region CevapKontrol
-        
+
         private void s1_şık_1_Click(object sender, EventArgs e)
         {
             if (yanıt=="yanlış")
@@ -544,10 +572,10 @@ namespace Kelime_Ezber_Sistemi
             }
             else
             {
-                if (s1_şık_1.Text == cevap)
+                if (şık_1.Text == cevap)
                 {
-                    s1_kelime.Appearance.BackColor = Color.Green;
-                    s1_şık_1.Appearance.BackColor = Color.Green;
+                    btn_kelime.Appearance.BackColor = Color.Green;
+                    şık_1.Appearance.BackColor = Color.Green;
 
                     doğruCevap(seviye, kelimeİd, doğru);
                     timer_soruArası.Start();
@@ -559,24 +587,24 @@ namespace Kelime_Ezber_Sistemi
                 }
                 else
                 {
-                    s1_şık_1.Appearance.BackColor = Color.Red;
-                    s1_şık_1.Enabled = false;
-                    if (s1_şık_2.Text == cevap)
+                    şık_1.Appearance.BackColor = Color.Red;
+                    şık_1.Enabled = false;
+                    if (şık_2.Text == cevap)
                     {
-                        s1_şık_3.Enabled = false;
-                        s1_şık_2.Appearance.BackColor = Color.DarkOrange;
-                        s1_kelime.Appearance.BackColor = Color.DarkOrange;
-                        s1_şık_2.Font = new Font(s1_şık_2.Font.FontFamily, 8, FontStyle.Bold);
+                        şık_3.Enabled = false;
+                        şık_2.Appearance.BackColor = Color.DarkOrange;
+                        btn_kelime.Appearance.BackColor = Color.DarkOrange;
+                        şık_2.Font = new Font(şık_2.Font.FontFamily, 8, FontStyle.Bold);
                     }
 
-                    if (s1_şık_3.Text == cevap)
+                    if (şık_3.Text == cevap)
                     {
-                        s1_şık_2.Enabled = false;
-                        s1_şık_3.Appearance.BackColor = Color.DarkOrange;
-                        s1_kelime.Appearance.BackColor = Color.DarkOrange;
-                        s1_şık_3.Font = new Font(s1_şık_3.Font.FontFamily, 8, FontStyle.Bold);
+                        şık_2.Enabled = false;
+                        şık_3.Appearance.BackColor = Color.DarkOrange;
+                        btn_kelime.Appearance.BackColor = Color.DarkOrange;
+                        şık_3.Font = new Font(şık_3.Font.FontFamily, 8, FontStyle.Bold);
                     }
-                    yanlışCevapS1(kelimeİd, yanlış);
+                    yanlışCevap(kelimeİd, yanlış);
                     yanıt = "yanlış";
                 }
             }            
@@ -591,13 +619,13 @@ namespace Kelime_Ezber_Sistemi
             }
             else
             {
-                if (s1_şık_2.Text == cevap)
+                if (şık_2.Text == cevap)
                 {
 
-                    s1_kelime.Appearance.BackColor = Color.Green;
-                    s1_şık_2.Appearance.BackColor = Color.Green;
+                    btn_kelime.Appearance.BackColor = Color.Green;
+                    şık_2.Appearance.BackColor = Color.Green;
 
-                    doğruCevap(seviye, kelimeİd, lbl_doğru_s1.Text);
+                    doğruCevap(seviye, kelimeİd, doğru);
                     
                     timer_soruArası.Start();
                     if (kalıcıHafızaTest != "")
@@ -608,25 +636,25 @@ namespace Kelime_Ezber_Sistemi
                 }
                 else
                 {
-                    s1_şık_2.Appearance.BackColor = Color.Red;
-                    s1_şık_2.Enabled = false;
-                    if (s1_şık_1.Text == cevap)
+                    şık_2.Appearance.BackColor = Color.Red;
+                    şık_2.Enabled = false;
+                    if (şık_1.Text == cevap)
                     {
-                        s1_şık_1.Appearance.BackColor = Color.DarkOrange;
-                        s1_şık_3.Enabled = false;
-                        s1_kelime.Appearance.BackColor = Color.DarkOrange;
-                        s1_şık_1.Font = new Font(s1_şık_1.Font.FontFamily, 8, FontStyle.Bold);
+                        şık_1.Appearance.BackColor = Color.DarkOrange;
+                        şık_3.Enabled = false;
+                        btn_kelime.Appearance.BackColor = Color.DarkOrange;
+                        şık_1.Font = new Font(şık_1.Font.FontFamily, 8, FontStyle.Bold);
                     }
 
-                    if (s1_şık_3.Text == cevap)
+                    if (şık_3.Text == cevap)
                     {
-                        s1_şık_3.Appearance.BackColor = Color.DarkOrange;
-                        s1_şık_1.Enabled = false;
-                        s1_kelime.Appearance.BackColor = Color.DarkOrange;
-                        s1_şık_3.Font = new Font(s1_şık_3.Font.FontFamily, 8, FontStyle.Bold);
+                        şık_3.Appearance.BackColor = Color.DarkOrange;
+                        şık_1.Enabled = false;
+                        btn_kelime.Appearance.BackColor = Color.DarkOrange;
+                        şık_3.Font = new Font(şık_3.Font.FontFamily, 8, FontStyle.Bold);
                     }
 
-                    yanlışCevapS1(kelimeİd, yanlış);
+                    yanlışCevap(kelimeİd, yanlış);
                     yanıt = "yanlış";
                 }
             }
@@ -641,10 +669,10 @@ namespace Kelime_Ezber_Sistemi
             }
             else
             {
-                if (s1_şık_3.Text == cevap)
+                if (şık_3.Text == cevap)
                 {
-                    s1_şık_3.Appearance.BackColor = Color.Green;
-                    s1_kelime.Appearance.BackColor = Color.Green;
+                    şık_3.Appearance.BackColor = Color.Green;
+                    btn_kelime.Appearance.BackColor = Color.Green;
 
                     doğruCevap(seviye, kelimeİd, doğru);
                     timer_soruArası.Start();
@@ -656,31 +684,192 @@ namespace Kelime_Ezber_Sistemi
                 }
                 else
                 {
-                    s1_şık_3.Appearance.BackColor = Color.Red;
-                    s1_şık_3.Enabled = false;
-                    if (s1_şık_1.Text == cevap)
+                    şık_3.Appearance.BackColor = Color.Red;
+                    şık_3.Enabled = false;
+                    if (şık_1.Text == cevap)
                     {
-                        s1_şık_1.Appearance.BackColor = Color.DarkOrange;
-                        s1_kelime.Appearance.BackColor = Color.DarkOrange;
-                        s1_şık_1.Font = new Font(s1_şık_1.Font.FontFamily, 8, FontStyle.Bold);
-                        s1_şık_2.Enabled = false;
+                        şık_1.Appearance.BackColor = Color.DarkOrange;
+                        btn_kelime.Appearance.BackColor = Color.DarkOrange;
+                        şık_1.Font = new Font(şık_1.Font.FontFamily, 8, FontStyle.Bold);
+                        şık_2.Enabled = false;
                     }
 
-                    if (s1_şık_2.Text == cevap)
+                    if (şık_2.Text == cevap)
                     {
-                        s1_şık_2.Appearance.BackColor = Color.DarkOrange;
-                        s1_kelime.Appearance.BackColor = Color.DarkOrange;
-                        s1_şık_2.Font = new Font(s1_şık_2.Font.FontFamily, 8, FontStyle.Bold);
-                        s1_şık_1.Enabled = false;                        
+                        şık_2.Appearance.BackColor = Color.DarkOrange;
+                        btn_kelime.Appearance.BackColor = Color.DarkOrange;
+                        şık_2.Font = new Font(şık_2.Font.FontFamily, 8, FontStyle.Bold);
+                        şık_1.Enabled = false;                        
                     }
 
                     // Seviye 0 oldğu için bir alt seviyeye geçirmiyoruz
-                    yanlışCevapS1(kelimeİd, yanlış);
+                    yanlışCevap(kelimeİd, yanlış);
                     yanıt = "yanlış";
                 }
             }                        
         }
 
+        int hak = 2;
+
+        private void btn_yazmalı_ok_Click(object sender, EventArgs e)
+        {
+            //string metin = cevap;
+            string metin = "Büyümek, Mutluluk";
+            string ara = txt_yazmalı_yanıt.Text.Trim();
+            yazmalıSonuç = metin.ToLower().IndexOf(ara.ToLower(), 0, metin.Length - 1);
+
+            if (yazmalıSonuç == -1 && metin != ara)
+            {
+                //YANLIŞ
+                hak--;
+                btn_kelime.Appearance.BackColor = Color.Red;
+
+                if (hak>0)
+                {
+                    //hak var ise ipucu göster
+                    //ipucu göster
+
+                    List<string> harfler = new List<string>();
+                    //harfleri ayır
+                    for (int i = 0; i < metin.Length; i++)
+                    {
+                        harfler.Add(metin.Substring(i, 1));
+                    }
+                    
+                    int virgül = metin.IndexOf(",");
+                    int boşluk = metin.IndexOf(" ");
+
+                    if (virgül == -1 && boşluk == -1)
+                    {
+                        //virgül veya boşluk yok
+                        string ipiucu = metin.Substring(0, 1);
+                        for (int i = 1; i < metin.Length; i++)
+                        {
+                            if (i == 2)
+                            {
+                                ipiucu = "" + ipiucu + "" + harfler[2] + "";
+                            }
+                            else if (i == metin.Length - 1)
+                            {
+                                ipiucu = "" + ipiucu + "" + harfler[metin.Length - 1] + "";
+                            }
+                            else
+                            {
+                                ipiucu = "" + ipiucu + "" + "X";
+                            }
+                        }
+                        lbl_ipucu.Text = "İpucu: " + ipiucu + "";
+                    }
+                    else if (virgül != -1 && boşluk == -1)
+                    {
+                        // Virgül var boşluk yok
+                        string ipiucu = metin.Substring(0, 1);
+                        for (int i = 1; i < metin.Length; i++)
+                        {
+                            if (i == 2)
+                            {
+                                ipiucu = "" + ipiucu + "" + harfler[2] + "";
+                            }
+                            else if (i == virgül + 1)
+                            {
+                                ipiucu = "" + ipiucu + ",";
+                            }
+                            else if (i == metin.Length - 1)
+                            {
+                                ipiucu = "" + ipiucu + "" + harfler[metin.Length - 1] + "";
+                            }
+                            else
+                            {
+                                ipiucu = "" + ipiucu + "" + "X";
+                            }
+                        }
+                        lbl_ipucu.Text = "İpucu: " + ipiucu + "";
+                    }
+                    else if (virgül == -1 && boşluk != -1)
+                    {
+                        //Virgül yok Boşluk Var
+                        string ipiucu = metin.Substring(0, 1);
+                        for (int i = 1; i < metin.Length; i++)
+                        {
+                            if (i == 2)
+                            {
+                                ipiucu = "" + ipiucu + "" + harfler[2] + "";
+                            }
+                            else if (i == boşluk + 1)
+                            {
+                                ipiucu = "" + ipiucu + " ";
+                            }
+                            else if (i == boşluk + 2)
+                            {
+                                ipiucu = "" + ipiucu + ""+ harfler[boşluk+1] + "";
+                            }
+                            else if (i == metin.Length - 1)
+                            {
+                                ipiucu = "" + ipiucu + "" + harfler[metin.Length - 1] + "";
+                            }
+                            else
+                            {
+                                ipiucu = "" + ipiucu + "" + "X";
+                            }
+                        }
+                        lbl_ipucu.Text = "İpucu: " + ipiucu + "";
+                    }
+                    else if (virgül != -1 && boşluk != -1)
+                    {
+                        //Virgül yok Boşluk Var
+                        string ipiucu = metin.Substring(0, 1);
+                        for (int i = 1; i < metin.Length; i++)
+                        {
+                            if (i == 2)
+                            {
+                                ipiucu = "" + ipiucu + "" + harfler[2] + ""; // cavabın 3.Harfi
+                            }
+                            else if (i == boşluk)
+                            {
+                                ipiucu = "" + ipiucu + " ";
+                            }
+                            else if (i == virgül)
+                            {
+                                ipiucu = "" + ipiucu + ",";
+                            }
+                            else if (i == boşluk + 1)
+                            {
+                                ipiucu = "" + ipiucu + "" + harfler[boşluk + 1] + "";
+                            }
+                            else if (i == metin.Length - 1)
+                            {
+                                ipiucu = "" + ipiucu + "" + harfler[metin.Length - 1] + "";
+                            }
+                            else
+                            {
+                                ipiucu = "" + ipiucu + "" + "X";
+                            }
+                        }
+                        lbl_ipucu.Text = "İpucu: " + ipiucu + "";
+                    }                   
+                    
+                }
+                else
+                {
+                    //hak kalmamış direk yanlış işlemler
+                    yanlışCevap(kelimeİd, yanlış);
+                    yanıt = "yanlış";
+                }
+            }
+            else
+            {
+                //DOĞRU
+                btn_kelime.Appearance.BackColor = Color.Green;
+                timer_soruArası.Start();
+                doğruCevap(seviye, kelimeİd, doğru);
+                
+                if (kalıcıHafızaTest != "")
+                {
+                    kalıcıHafıza();
+                    kalıcıHafızaTest = "";
+                }
+            }
+        }
 
         #region Butonlar
         private void ch_fiiller_CheckedChanged(object sender, EventArgs e)
@@ -970,6 +1159,18 @@ namespace Kelime_Ezber_Sistemi
             bağlantı.Open();
             komut_a2.ExecuteNonQuery();
             bağlantı.Close();
+        }
+
+        private void ts_seçmeliYazmalı_Toggled(object sender, EventArgs e)
+        {
+            if (ts_seçmeliYazmalı.EditValue.ToString() == "Yazmalı")
+            {
+                xt_şıklar.SelectedTabPage = xt_şıklarPage_yazmalı;
+            }
+            else
+            {
+                xt_şıklar.SelectedTabPage = xt_şıklarPage_seçmeli;
+            }
         }
     }
 }
