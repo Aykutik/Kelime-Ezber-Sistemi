@@ -244,6 +244,7 @@ namespace Kelime_Ezber_Sistemi
             xt_ana.SelectedTabPage = xt_anaPage_seviyeler;
             lbl_seviye.Text = "Seviye 2";
             xt_şıklar.SelectedTabPage = xt_şıklarPage_seçmeli;
+            yeniSoru();
         }
 
         private void btn_Kısım3_Click(object sender, EventArgs e)
@@ -253,6 +254,7 @@ namespace Kelime_Ezber_Sistemi
             xt_ana.SelectedTabPage = xt_anaPage_seviyeler;
             lbl_seviye.Text = "Seviye 3";
             xt_şıklar.SelectedTabPage = xt_şıklarPage_seçmeli;
+            yeniSoru();
         }
 
         private void btn_Kısım4_Click(object sender, EventArgs e)
@@ -262,6 +264,7 @@ namespace Kelime_Ezber_Sistemi
             xt_ana.SelectedTabPage = xt_anaPage_seviyeler;
             lbl_seviye.Text = "Seviye 4";
             xt_şıklar.SelectedTabPage = xt_şıklarPage_seçmeli;
+            yeniSoru();
         }
 
         private void btn_Kısım5_Click(object sender, EventArgs e)
@@ -271,6 +274,7 @@ namespace Kelime_Ezber_Sistemi
             xt_ana.SelectedTabPage = xt_anaPage_seviyeler;
             lbl_seviye.Text = "Seviye 5";
             xt_şıklar.SelectedTabPage = xt_şıklarPage_yazmalı;
+            yeniSoru();
             hak = 0;
         }
 
@@ -287,6 +291,7 @@ namespace Kelime_Ezber_Sistemi
         private void yeniSoru()
         {
             timer_soruArası.Stop();
+            timer_yazmalıSoruArası.Stop();
             şık_1.Font = new Font(şık_1.Font.FontFamily, 7, FontStyle.Regular);
             şık_2.Font = new Font(şık_2.Font.FontFamily, 7, FontStyle.Regular);
             şık_3.Font = new Font(şık_2.Font.FontFamily, 7, FontStyle.Regular);
@@ -297,8 +302,9 @@ namespace Kelime_Ezber_Sistemi
             şık_1.Enabled = true;
             şık_2.Enabled = true;
             şık_3.Enabled = true;
-
+            çalışmaTemizle();
             rasgeleKelime();
+            
 
             btn_kelime.Text = kelime;
             şık_1.Text = şık1;
@@ -307,7 +313,8 @@ namespace Kelime_Ezber_Sistemi
             lbl_yanlış_s1.Text = yanlış;
             lbl_doğru_s1.Text = doğru;
             s1_btnFavori.EditValue = favori;
-            s1_tür.Text = tür;            
+            s1_tür.Text = tür;
+
         }
 
         public string cevap = "";
@@ -437,10 +444,15 @@ namespace Kelime_Ezber_Sistemi
                     cevap = dr["EN"].ToString();
                     kelime = dr["TR"].ToString();
                 }
-
+                
             }
             dr.Close();
             bağlantı.Close();
+
+            if (kelime == "" | kelime == null)
+            {
+                yeniSoru();
+            }
 
             şıkOluşturma();
 
@@ -534,20 +546,36 @@ namespace Kelime_Ezber_Sistemi
         
         private void şıkOluşturma()
         {
-            if (Convert.ToInt32(seviye)<5 & Convert.ToInt32(seviye) > 0)
+            if (Convert.ToInt32(seviye)<4 & Convert.ToInt32(seviye) > 0)
             {
+                int sonSayı = 0;
+                if (seviye == "1")
+                {
+                    sonSayı = 7;
+                }
+                if (seviye == "2")
+                {
+                    sonSayı = 4;
+                }
+                if (seviye == "3")
+                {
+                    sonSayı = 2;
+                }
                 Random rnd = new Random();
                 int sayı = rnd.Next(1, 6);
                 if (sayı == 5)
                 {
                     xt_şıklar.SelectedTabPage = xt_şıklarPage_yazmalı;
-                    ts_seçmeliYazmalı.Visible = true;
+                    ts_seçmeliYazmalı.Enabled = false;
+                    ts_seçmeliYazmalı.EditValue = "yazmalı";
                 }
                 else
                 {
                     seçmeliŞıkOluştur();
                     xt_şıklar.SelectedTabPage = xt_şıklarPage_seçmeli;
                     ts_seçmeliYazmalı.Visible = true;
+                    ts_seçmeliYazmalı.Enabled = true;
+                    ts_seçmeliYazmalı.EditValue = "seçmeli";
                 }
                 
             }
@@ -559,7 +587,7 @@ namespace Kelime_Ezber_Sistemi
         }
 
         public string yanıt = "";
-        int yazmalıSonuç = 0;
+        
 
         #region CevapKontrol
 
@@ -710,21 +738,40 @@ namespace Kelime_Ezber_Sistemi
         }
 
         int hak = 2;
+        int tamEşleşmeVeyaİçerme = 0;
+        int yazmalıYanlışYapıldı = 0;
 
         private void btn_yazmalı_ok_Click(object sender, EventArgs e)
         {
-            //string metin = cevap;
-            string metin = "Büyümek, Mutluluk";
-            string ara = txt_yazmalı_yanıt.Text.Trim();
-            yazmalıSonuç = metin.ToLower().IndexOf(ara.ToLower(), 0, metin.Length - 1);
+            
+            string metin = cevap.ToLower();
+            //string metin = "park etmek";
+            string ara = txt_yazmalı_yanıt.Text.Trim().ToLower();
+            tamEşleşmeVeyaİçerme = metin.ToLower().IndexOf(ara.ToLower());
 
-            if (yazmalıSonuç == -1 && metin != ara)
+            //virgüllü, virgül varsa boşluk da vardır. Tam eşleşme yapmamız lazım
+            int virgül = metin.IndexOf(",");
+            int boşluk = metin.IndexOf(" ");
+            int ilkKelimeUzunluk = 0;
+            int sonKelimeUzunluk = 0;
+            int birdenfazlakelime = 0;
+            if (virgül != -1 & boşluk != -1)
+            {
+                //hem virgül hem boşluk var
+                ilkKelimeUzunluk = boşluk-1;
+                sonKelimeUzunluk = (metin.Length-1)- virgül-1;
+            }
+            else if (virgül == -1 & boşluk != -1)
+            {
+                // Virgül yok ama birden fazla kelime
+                birdenfazlakelime = 1;
+            }
+
+            if ((tamEşleşmeVeyaİçerme == -1 && metin != ara) | (txt_yazmalı_yanıt.Text.Length != ilkKelimeUzunluk & txt_yazmalı_yanıt.Text.Length != sonKelimeUzunluk) & (ilkKelimeUzunluk != 0 & sonKelimeUzunluk != 0))
             {
                 //YANLIŞ
-                hak--;
-                btn_kelime.Appearance.BackColor = Color.Red;
-
-                if (hak>0)
+                yazmalıYanlışYapıldı = 1;
+                if (hak > 0 & seviye != "5")
                 {
                     //hak var ise ipucu göster
                     //ipucu göster
@@ -735,9 +782,6 @@ namespace Kelime_Ezber_Sistemi
                     {
                         harfler.Add(metin.Substring(i, 1));
                     }
-                    
-                    int virgül = metin.IndexOf(",");
-                    int boşluk = metin.IndexOf(" ");
 
                     if (virgül == -1 && boşluk == -1)
                     {
@@ -748,6 +792,7 @@ namespace Kelime_Ezber_Sistemi
                             if (i == 2)
                             {
                                 ipiucu = "" + ipiucu + "" + harfler[2] + "";
+                                
                             }
                             else if (i == metin.Length - 1)
                             {
@@ -755,9 +800,31 @@ namespace Kelime_Ezber_Sistemi
                             }
                             else
                             {
-                                ipiucu = "" + ipiucu + "" + "X";
+                                if (i == 3 & seviye != "4")
+                                {
+                                    if (hak == 1 & yazmalıYanlışYapıldı == 1)
+                                    {
+                                        try
+                                        {
+                                            ipiucu = "" + ipiucu + "" + harfler[3] + ""; // cavabın 4.Harfi
+                                        }
+                                        catch (Exception)
+                                        {
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ipiucu = "" + ipiucu + "" + "X";
+                                    }
+                                }
+                                else
+                                {
+                                    ipiucu = "" + ipiucu + "" + "X";
+                                }
                             }
                         }
+                        lbl_ipucu.Visible = true;
                         lbl_ipucu.Text = "İpucu: " + ipiucu + "";
                     }
                     else if (virgül != -1 && boşluk == -1)
@@ -769,6 +836,7 @@ namespace Kelime_Ezber_Sistemi
                             if (i == 2)
                             {
                                 ipiucu = "" + ipiucu + "" + harfler[2] + "";
+
                             }
                             else if (i == virgül + 1)
                             {
@@ -780,28 +848,51 @@ namespace Kelime_Ezber_Sistemi
                             }
                             else
                             {
-                                ipiucu = "" + ipiucu + "" + "X";
+                                if (i == 3 & seviye != "4")
+                                {
+                                    if (hak == 1 & yazmalıYanlışYapıldı == 1)
+                                    {
+                                        try
+                                        {
+                                            ipiucu = "" + ipiucu + "" + harfler[3] + ""; // cavabın 4.Harfi
+                                        }
+                                        catch (Exception)
+                                        {
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ipiucu = "" + ipiucu + "" + "X";
+                                    }
+                                }
+                                else
+                                {
+                                    ipiucu = "" + ipiucu + "" + "X";
+                                }
                             }
                         }
+                        lbl_ipucu.Visible = true;
                         lbl_ipucu.Text = "İpucu: " + ipiucu + "";
                     }
                     else if (virgül == -1 && boşluk != -1)
                     {
                         //Virgül yok Boşluk Var
-                        string ipiucu = metin.Substring(0, 1);
+                        string ipiucu = metin.ToUpper().Substring(0, 1).ToUpper();
                         for (int i = 1; i < metin.Length; i++)
                         {
                             if (i == 2)
                             {
                                 ipiucu = "" + ipiucu + "" + harfler[2] + "";
+
                             }
-                            else if (i == boşluk + 1)
+                            else if (i == boşluk)
                             {
                                 ipiucu = "" + ipiucu + " ";
                             }
-                            else if (i == boşluk + 2)
+                            else if (i == boşluk + 1)
                             {
-                                ipiucu = "" + ipiucu + ""+ harfler[boşluk+1] + "";
+                                ipiucu = "" + ipiucu + "" + harfler[boşluk + 1] + "";
                             }
                             else if (i == metin.Length - 1)
                             {
@@ -809,9 +900,31 @@ namespace Kelime_Ezber_Sistemi
                             }
                             else
                             {
-                                ipiucu = "" + ipiucu + "" + "X";
+                                if (i== 3 & seviye != "4")
+                                {
+                                    if (hak == 1 & yazmalıYanlışYapıldı ==1)
+                                    {
+                                        try
+                                        {
+                                            ipiucu = "" + ipiucu + "" + harfler[3] + ""; // cavabın 4.Harfi
+                                        }
+                                        catch (Exception)
+                                        {
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ipiucu = "" + ipiucu + "" + "X";
+                                    }
+                                }
+                                else
+                                {
+                                    ipiucu = "" + ipiucu + "" + "X";
+                                }                                
                             }
                         }
+                        lbl_ipucu.Visible = true;
                         lbl_ipucu.Text = "İpucu: " + ipiucu + "";
                     }
                     else if (virgül != -1 && boşluk != -1)
@@ -822,8 +935,9 @@ namespace Kelime_Ezber_Sistemi
                         {
                             if (i == 2)
                             {
-                                ipiucu = "" + ipiucu + "" + harfler[2] + ""; // cavabın 3.Harfi
-                            }
+                                ipiucu = "" + ipiucu + "" + harfler[2] + "";
+
+                            }                            
                             else if (i == boşluk)
                             {
                                 ipiucu = "" + ipiucu + " ";
@@ -842,33 +956,327 @@ namespace Kelime_Ezber_Sistemi
                             }
                             else
                             {
-                                ipiucu = "" + ipiucu + "" + "X";
+                                if (i == 3 & seviye != "4")
+                                {
+                                    if (hak == 1 & yazmalıYanlışYapıldı ==1)
+                                    {
+                                        try
+                                        {
+                                            ipiucu = "" + ipiucu + "" + harfler[3] + ""; // cavabın 4.Harfi
+                                        }
+                                        catch (Exception)
+                                        {
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ipiucu = "" + ipiucu + "" + "X";
+                                    }
+                                }
+                                else
+                                {
+                                    ipiucu = "" + ipiucu + "" + "X";
+                                }
                             }
                         }
+                        lbl_ipucu.Visible = true;
                         lbl_ipucu.Text = "İpucu: " + ipiucu + "";
-                    }                   
-                    
+                    }
                 }
                 else
                 {
                     //hak kalmamış direk yanlış işlemler
+                    lbl_ipucu.ForeColor = Color.Red;
+                    lbl_ipucu.Visible = true;
+                    lbl_ipucu.Text = cevap;
+
+                    timer_yazmalıSoruArası.Start();
+                    
                     yanlışCevap(kelimeİd, yanlış);
-                    yanıt = "yanlış";
+                    yanıt = "yanlış";                                        
                 }
+
+                if (hak > 0)
+                {
+                    hak--;
+                    lbl_hak.Text = "İpucu Hakkı: " + hak.ToString() + "/3";
+                }
+
+                if (hak == 0)
+                {
+                    lbl_hak.Text = "İpucu Hakkınız Kalmadı. Doğru cevaplar vererek yükseltin.";
+                }
+                else
+                {
+                    lbl_hak.Text = "İpucu Hakkı: " + hak.ToString() + "/3";
+                }                
+
+                btn_kelime.Appearance.BackColor = Color.Red;
             }
             else
             {
-                //DOĞRU
-                btn_kelime.Appearance.BackColor = Color.Green;
-                timer_soruArası.Start();
-                doğruCevap(seviye, kelimeİd, doğru);
-                
-                if (kalıcıHafızaTest != "")
+                if ((birdenfazlakelime == 1 & metin == ara) | (tamEşleşmeVeyaİçerme == 0 && metin == ara) | ((tamEşleşmeVeyaİçerme > -1 & txt_yazmalı_yanıt.Text.Length == ilkKelimeUzunluk)| ((tamEşleşmeVeyaİçerme > -1 & txt_yazmalı_yanıt.Text.Length == sonKelimeUzunluk))))
                 {
-                    kalıcıHafıza();
-                    kalıcıHafızaTest = "";
+                    //DOĞRU
+                    if (hak < 3)
+                    {
+                        hak++;
+                        lbl_hak.Text = "İpucu Hakkı: " + hak.ToString() + "/3";
+                    }
+                    yazmalıYanlışYapıldı = 0;
+
+                    btn_kelime.Appearance.BackColor = Color.Green;
+                    timer_soruArası.Start();
+                    çalışmaTemizle();
+                    doğruCevap(seviye, kelimeİd, doğru);
+
+                    if (kalıcıHafızaTest != "")
+                    {
+                        kalıcıHafıza();
+                        kalıcıHafızaTest = "";
+                    }
+                }
+                else
+                {
+                    //YANLIŞ
+                    if (hak != 0)
+                    {
+                        hak--;
+                        lbl_hak.Text = "İpucu Hakkı: " + hak.ToString() + "/3";
+                    }
+
+                    btn_kelime.Appearance.BackColor = Color.Red;
+
+                    if (hak > 0)
+                    {
+                        //hak var ise ipucu göster
+                        //ipucu göster
+
+                        List<string> harfler = new List<string>();
+                        //harfleri ayır
+                        for (int i = 0; i < metin.Length; i++)
+                        {
+                            harfler.Add(metin.Substring(i, 1));
+                        }
+
+                        if (virgül == -1 && boşluk == -1)
+                        {
+                            //virgül veya boşluk yok
+                            string ipiucu = metin.Substring(0, 1);
+                            for (int i = 1; i < metin.Length; i++)
+                            {
+                                if (i == 2)
+                                {
+                                    ipiucu = "" + ipiucu + "" + harfler[2] + "";
+                                }
+                                else if (i == metin.Length - 1)
+                                {
+                                    ipiucu = "" + ipiucu + "" + harfler[metin.Length - 1] + "";
+                                }
+                                else
+                                {
+                                    if (i == 3 & yazmalıYanlışYapıldı == 1 & seviye != "4")
+                                    {
+                                        if (hak == 1)
+                                        {
+                                            try
+                                            {
+                                                ipiucu = "" + ipiucu + "" + harfler[3] + ""; // cavabın 4.Harfi
+                                            }
+                                            catch (Exception)
+                                            {
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ipiucu = "" + ipiucu + "" + "X";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ipiucu = "" + ipiucu + "" + "X";
+                                    }
+                                }
+                            }
+                            lbl_ipucu.Visible = true;
+                            lbl_ipucu.Text = "İpucu: " + ipiucu + "";
+                        }
+                        else if (virgül != -1 && boşluk == -1)
+                        {
+                            // Virgül var boşluk yok
+                            string ipiucu = metin.Substring(0, 1);
+                            for (int i = 1; i < metin.Length; i++)
+                            {
+                                if (i == 2)
+                                {
+                                    ipiucu = "" + ipiucu + "" + harfler[2] + "";
+                                }
+                                else if (i == virgül + 1)
+                                {
+                                    ipiucu = "" + ipiucu + ",";
+                                }
+                                else if (i == metin.Length - 1)
+                                {
+                                    ipiucu = "" + ipiucu + "" + harfler[metin.Length - 1] + "";
+                                }
+                                else
+                                {
+                                    if (i == 3 & yazmalıYanlışYapıldı == 1 & seviye != "4")
+                                    {
+                                        if (hak == 1)
+                                        {
+                                            try
+                                            {
+                                                ipiucu = "" + ipiucu + "" + harfler[3] + ""; // cavabın 4.Harfi
+                                            }
+                                            catch (Exception)
+                                            {
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ipiucu = "" + ipiucu + "" + "X";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ipiucu = "" + ipiucu + "" + "X";
+                                    }
+                                }
+                            }
+                            lbl_ipucu.Visible = true;
+                            lbl_ipucu.Text = "İpucu: " + ipiucu + "";
+                        }
+                        else if (virgül == -1 && boşluk != -1)
+                        {
+                            //Virgül yok Boşluk Var
+                            string ipiucu = metin.Substring(0, 1);
+                            for (int i = 1; i < metin.Length; i++)
+                            {
+                                if (i == 2)
+                                {
+                                    ipiucu = "" + ipiucu + "" + harfler[2] + "";
+                                }
+                                else if (i == boşluk + 1)
+                                {
+                                    ipiucu = "" + ipiucu + " ";
+                                }
+                                else if (i == boşluk + 2)
+                                {
+                                    ipiucu = "" + ipiucu + "" + harfler[boşluk + 1] + "";
+                                }
+                                else if (i == metin.Length - 1)
+                                {
+                                    ipiucu = "" + ipiucu + "" + harfler[metin.Length - 1] + "";
+                                }
+                                else
+                                {
+                                    if (i == 3)
+                                    {
+                                        if (hak == 1 & yazmalıYanlışYapıldı == 1 & seviye != "4")
+                                        {
+                                            try
+                                            {
+                                                ipiucu = "" + ipiucu + "" + harfler[3] + ""; // cavabın 4.Harfi
+                                            }
+                                            catch (Exception)
+                                            {
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ipiucu = "" + ipiucu + "" + "X";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ipiucu = "" + ipiucu + "" + "X";
+                                    }
+                                }
+                            }
+                            lbl_ipucu.Visible = true;
+                            lbl_ipucu.Text = "İpucu: " + ipiucu + "";
+                        }
+                        else if (virgül != -1 && boşluk != -1)
+                        {
+                            //Virgül de var boşluk da
+                            string ipiucu = metin.Substring(0, 1);
+                            for (int i = 1; i < metin.Length; i++)
+                            {
+                                if (i == 2)
+                                {
+                                    ipiucu = "" + ipiucu + "" + harfler[2] + ""; // cavabın 3.Harfi
+                                }
+                                else if (i == boşluk)
+                                {
+                                    ipiucu = "" + ipiucu + " ";
+                                }
+                                else if (i == virgül)
+                                {
+                                    ipiucu = "" + ipiucu + ",";
+                                }
+                                else if (i == boşluk + 1)
+                                {
+                                    ipiucu = "" + ipiucu + "" + harfler[boşluk + 1] + "";
+                                }
+                                else if (i == metin.Length - 1)
+                                {
+                                    ipiucu = "" + ipiucu + "" + harfler[metin.Length - 1] + "";
+                                }
+                                else
+                                {
+                                    if (i == 3 & yazmalıYanlışYapıldı == 1 & seviye != "4")
+                                    {
+                                        if (hak == 1)
+                                        {
+                                            try
+                                            {
+                                                ipiucu = "" + ipiucu + "" + harfler[3] + ""; // cavabın 4.Harfi
+                                            }
+                                            catch (Exception)
+                                            {
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ipiucu = "" + ipiucu + "" + "X";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ipiucu = "" + ipiucu + "" + "X";
+                                    }
+                                }
+                            }
+                            lbl_ipucu.Visible = true;
+                            lbl_ipucu.Text = "İpucu: " + ipiucu + "";
+                        }
+
+                    }
+                    else
+                    {
+                        //hak kalmamış direk yanlış işlemler
+                        lbl_ipucu.ForeColor = Color.Red;
+                        lbl_ipucu.Visible = true;
+                        lbl_ipucu.Text = cevap;
+                        timer_yazmalıSoruArası.Start();
+                        yanlışCevap(kelimeİd, yanlış);
+                        yanıt = "yanlış"; 
+                    }
                 }
             }
+        }
+
+        void çalışmaTemizle()
+        {
+            txt_yazmalı_yanıt.Text = "";
+            lbl_ipucu.Text = "";
+            lbl_ipucu.Visible = false;
         }
 
         #region Butonlar
@@ -1141,6 +1549,10 @@ namespace Kelime_Ezber_Sistemi
         {
             yeniSoru();
         }
+        private void timer_yazmalıSoruArası_Tick(object sender, EventArgs e)
+        {
+            yeniSoru();
+        }
 
         private void btn_kelimeEkle_Click_1(object sender, EventArgs e)
         {
@@ -1163,14 +1575,16 @@ namespace Kelime_Ezber_Sistemi
 
         private void ts_seçmeliYazmalı_Toggled(object sender, EventArgs e)
         {
-            if (ts_seçmeliYazmalı.EditValue.ToString() == "Yazmalı")
+            if (ts_seçmeliYazmalı.EditValue.ToString() == "yazmalı")
             {
                 xt_şıklar.SelectedTabPage = xt_şıklarPage_yazmalı;
             }
-            else
+            else if (ts_seçmeliYazmalı.EditValue.ToString() == "seçmeli")
             {
                 xt_şıklar.SelectedTabPage = xt_şıklarPage_seçmeli;
             }
         }
+
+        
     }
 }
