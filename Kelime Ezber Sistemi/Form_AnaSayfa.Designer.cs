@@ -84,6 +84,14 @@ namespace Kelime_Ezber_Sistemi
             this.xt_anaPage_giriş = new DevExpress.XtraTab.XtraTabPage();
             this.xt_şifre = new DevExpress.XtraTab.XtraTabControl();
             this.xt_şifrePage_ParolaDeğiş = new DevExpress.XtraTab.XtraTabPage();
+            this.lbl_pararolaDeğiştirBilgi = new DevExpress.XtraEditors.LabelControl();
+            this.txt_mevcutParola = new DevExpress.XtraEditors.TextEdit();
+            this.txt_yeniParolaTekrar = new DevExpress.XtraEditors.TextEdit();
+            this.txt_yeniParola = new DevExpress.XtraEditors.TextEdit();
+            this.btn_parolaDeğiştir = new DevExpress.XtraEditors.SimpleButton();
+            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.xt_şifrePage_giriş = new DevExpress.XtraTab.XtraTabPage();
             this.txt_kullanıcıAdı = new DevExpress.XtraEditors.TextEdit();
             this.lbl_girişKontrolBilgi = new DevExpress.XtraEditors.LabelControl();
@@ -115,14 +123,8 @@ namespace Kelime_Ezber_Sistemi
             this.db_kullanıcıAdı = new DevExpress.XtraEditors.DropDownButton();
             this.contextMenuStrip_kullanıcıAdı = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menu_şifreDeğiştir = new System.Windows.Forms.ToolStripMenuItem();
-            this.txt_mevcutParola = new DevExpress.XtraEditors.TextEdit();
-            this.txt_yeniParola = new DevExpress.XtraEditors.TextEdit();
-            this.btn_parolaDeğiştir = new DevExpress.XtraEditors.SimpleButton();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
-            this.lbl_pararolaDeğiştirBilgi = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
-            this.txt_yeniParolaTekrar = new DevExpress.XtraEditors.TextEdit();
+            this.gridControl_kalıcıHafıza = new DevExpress.XtraGrid.GridControl();
+            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             ((System.ComponentModel.ISupportInitialize)(this.s1_btnFavori.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xt_ana)).BeginInit();
             this.xt_ana.SuspendLayout();
@@ -133,6 +135,9 @@ namespace Kelime_Ezber_Sistemi
             ((System.ComponentModel.ISupportInitialize)(this.xt_şifre)).BeginInit();
             this.xt_şifre.SuspendLayout();
             this.xt_şifrePage_ParolaDeğiş.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_mevcutParola.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_yeniParolaTekrar.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_yeniParola.Properties)).BeginInit();
             this.xt_şifrePage_giriş.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txt_kullanıcıAdı.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_parola.Properties)).BeginInit();
@@ -147,11 +152,11 @@ namespace Kelime_Ezber_Sistemi
             this.xt_şıklarPage_seçmeli.SuspendLayout();
             this.xt_şıklarPage_yazmalı.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txt_yazmalı_yanıt.Properties)).BeginInit();
+            this.xt_anaPage_kalıcıHafıza.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.contextMenuStrip_kullanıcıAdı.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txt_mevcutParola.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txt_yeniParola.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txt_yeniParolaTekrar.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl_kalıcıHafıza)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Seviye1
@@ -731,6 +736,79 @@ namespace Kelime_Ezber_Sistemi
             this.xt_şifrePage_ParolaDeğiş.Size = new System.Drawing.Size(298, 277);
             this.xt_şifrePage_ParolaDeğiş.Text = "xtraTabPage2";
             // 
+            // lbl_pararolaDeğiştirBilgi
+            // 
+            this.lbl_pararolaDeğiştirBilgi.Location = new System.Drawing.Point(38, 215);
+            this.lbl_pararolaDeğiştirBilgi.Name = "lbl_pararolaDeğiştirBilgi";
+            this.lbl_pararolaDeğiştirBilgi.Size = new System.Drawing.Size(63, 13);
+            this.lbl_pararolaDeğiştirBilgi.TabIndex = 8;
+            this.lbl_pararolaDeğiştirBilgi.Text = "labelControl3";
+            // 
+            // txt_mevcutParola
+            // 
+            this.txt_mevcutParola.Location = new System.Drawing.Point(162, 63);
+            this.txt_mevcutParola.Name = "txt_mevcutParola";
+            this.txt_mevcutParola.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.txt_mevcutParola.Properties.Appearance.Options.UseBackColor = true;
+            this.txt_mevcutParola.Properties.PasswordChar = '*';
+            this.txt_mevcutParola.Size = new System.Drawing.Size(100, 20);
+            this.txt_mevcutParola.TabIndex = 3;
+            // 
+            // txt_yeniParolaTekrar
+            // 
+            this.txt_yeniParolaTekrar.Location = new System.Drawing.Point(162, 121);
+            this.txt_yeniParolaTekrar.Name = "txt_yeniParolaTekrar";
+            this.txt_yeniParolaTekrar.Properties.PasswordChar = '*';
+            this.txt_yeniParolaTekrar.Size = new System.Drawing.Size(100, 20);
+            this.txt_yeniParolaTekrar.TabIndex = 4;
+            // 
+            // txt_yeniParola
+            // 
+            this.txt_yeniParola.Location = new System.Drawing.Point(162, 95);
+            this.txt_yeniParola.Name = "txt_yeniParola";
+            this.txt_yeniParola.Properties.PasswordChar = '*';
+            this.txt_yeniParola.Size = new System.Drawing.Size(100, 20);
+            this.txt_yeniParola.TabIndex = 4;
+            // 
+            // btn_parolaDeğiştir
+            // 
+            this.btn_parolaDeğiştir.Location = new System.Drawing.Point(162, 163);
+            this.btn_parolaDeğiştir.Name = "btn_parolaDeğiştir";
+            this.btn_parolaDeğiştir.Size = new System.Drawing.Size(100, 23);
+            this.btn_parolaDeğiştir.TabIndex = 7;
+            this.btn_parolaDeğiştir.Text = "DEĞİŞTİR";
+            this.btn_parolaDeğiştir.Click += new System.EventHandler(this.btn_parolaDeğiştir_Click);
+            // 
+            // labelControl6
+            // 
+            this.labelControl6.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.labelControl6.Appearance.Options.UseFont = true;
+            this.labelControl6.Location = new System.Drawing.Point(38, 124);
+            this.labelControl6.Name = "labelControl6";
+            this.labelControl6.Size = new System.Drawing.Size(107, 13);
+            this.labelControl6.TabIndex = 6;
+            this.labelControl6.Text = "Yeni Parola Tekrar:";
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.labelControl3.Appearance.Options.UseFont = true;
+            this.labelControl3.Location = new System.Drawing.Point(38, 67);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(84, 13);
+            this.labelControl3.TabIndex = 5;
+            this.labelControl3.Text = "Mevcut Parola:";
+            // 
+            // labelControl4
+            // 
+            this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.labelControl4.Appearance.Options.UseFont = true;
+            this.labelControl4.Location = new System.Drawing.Point(38, 99);
+            this.labelControl4.Name = "labelControl4";
+            this.labelControl4.Size = new System.Drawing.Size(66, 13);
+            this.labelControl4.TabIndex = 6;
+            this.labelControl4.Text = "Yeni Parola:";
+            // 
             // xt_şifrePage_giriş
             // 
             this.xt_şifrePage_giriş.Controls.Add(this.txt_kullanıcıAdı);
@@ -1016,6 +1094,7 @@ namespace Kelime_Ezber_Sistemi
             // 
             // xt_anaPage_kalıcıHafıza
             // 
+            this.xt_anaPage_kalıcıHafıza.Controls.Add(this.gridControl_kalıcıHafıza);
             this.xt_anaPage_kalıcıHafıza.Name = "xt_anaPage_kalıcıHafıza";
             this.xt_anaPage_kalıcıHafıza.Size = new System.Drawing.Size(556, 385);
             this.xt_anaPage_kalıcıHafıza.Text = "KALICI HAFIZA";
@@ -1049,78 +1128,20 @@ namespace Kelime_Ezber_Sistemi
             this.menu_şifreDeğiştir.Text = "Şifre Değiştir";
             this.menu_şifreDeğiştir.Click += new System.EventHandler(this.menu_şifreDeğiştir_Click);
             // 
-            // txt_mevcutParola
+            // gridControl_kalıcıHafıza
             // 
-            this.txt_mevcutParola.Location = new System.Drawing.Point(162, 63);
-            this.txt_mevcutParola.Name = "txt_mevcutParola";
-            this.txt_mevcutParola.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
-            this.txt_mevcutParola.Properties.Appearance.Options.UseBackColor = true;
-            this.txt_mevcutParola.Properties.PasswordChar = '*';
-            this.txt_mevcutParola.Size = new System.Drawing.Size(100, 20);
-            this.txt_mevcutParola.TabIndex = 3;
+            this.gridControl_kalıcıHafıza.Location = new System.Drawing.Point(30, 27);
+            this.gridControl_kalıcıHafıza.MainView = this.gridView2;
+            this.gridControl_kalıcıHafıza.Name = "gridControl_kalıcıHafıza";
+            this.gridControl_kalıcıHafıza.Size = new System.Drawing.Size(499, 326);
+            this.gridControl_kalıcıHafıza.TabIndex = 0;
+            this.gridControl_kalıcıHafıza.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView2});
             // 
-            // txt_yeniParola
+            // gridView2
             // 
-            this.txt_yeniParola.Location = new System.Drawing.Point(162, 95);
-            this.txt_yeniParola.Name = "txt_yeniParola";
-            this.txt_yeniParola.Properties.PasswordChar = '*';
-            this.txt_yeniParola.Size = new System.Drawing.Size(100, 20);
-            this.txt_yeniParola.TabIndex = 4;
-            // 
-            // btn_parolaDeğiştir
-            // 
-            this.btn_parolaDeğiştir.Location = new System.Drawing.Point(162, 163);
-            this.btn_parolaDeğiştir.Name = "btn_parolaDeğiştir";
-            this.btn_parolaDeğiştir.Size = new System.Drawing.Size(100, 23);
-            this.btn_parolaDeğiştir.TabIndex = 7;
-            this.btn_parolaDeğiştir.Text = "DEĞİŞTİR";
-            this.btn_parolaDeğiştir.Click += new System.EventHandler(this.btn_parolaDeğiştir_Click);
-            // 
-            // labelControl3
-            // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-            this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Location = new System.Drawing.Point(38, 67);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(84, 13);
-            this.labelControl3.TabIndex = 5;
-            this.labelControl3.Text = "Mevcut Parola:";
-            // 
-            // labelControl4
-            // 
-            this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-            this.labelControl4.Appearance.Options.UseFont = true;
-            this.labelControl4.Location = new System.Drawing.Point(38, 99);
-            this.labelControl4.Name = "labelControl4";
-            this.labelControl4.Size = new System.Drawing.Size(66, 13);
-            this.labelControl4.TabIndex = 6;
-            this.labelControl4.Text = "Yeni Parola:";
-            // 
-            // lbl_pararolaDeğiştirBilgi
-            // 
-            this.lbl_pararolaDeğiştirBilgi.Location = new System.Drawing.Point(38, 215);
-            this.lbl_pararolaDeğiştirBilgi.Name = "lbl_pararolaDeğiştirBilgi";
-            this.lbl_pararolaDeğiştirBilgi.Size = new System.Drawing.Size(63, 13);
-            this.lbl_pararolaDeğiştirBilgi.TabIndex = 8;
-            this.lbl_pararolaDeğiştirBilgi.Text = "labelControl3";
-            // 
-            // labelControl6
-            // 
-            this.labelControl6.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-            this.labelControl6.Appearance.Options.UseFont = true;
-            this.labelControl6.Location = new System.Drawing.Point(38, 124);
-            this.labelControl6.Name = "labelControl6";
-            this.labelControl6.Size = new System.Drawing.Size(107, 13);
-            this.labelControl6.TabIndex = 6;
-            this.labelControl6.Text = "Yeni Parola Tekrar:";
-            // 
-            // txt_yeniParolaTekrar
-            // 
-            this.txt_yeniParolaTekrar.Location = new System.Drawing.Point(162, 121);
-            this.txt_yeniParolaTekrar.Name = "txt_yeniParolaTekrar";
-            this.txt_yeniParolaTekrar.Properties.PasswordChar = '*';
-            this.txt_yeniParolaTekrar.Size = new System.Drawing.Size(100, 20);
-            this.txt_yeniParolaTekrar.TabIndex = 4;
+            this.gridView2.GridControl = this.gridControl_kalıcıHafıza;
+            this.gridView2.Name = "gridView2";
             // 
             // Form_AnaSayfa
             // 
@@ -1149,6 +1170,9 @@ namespace Kelime_Ezber_Sistemi
             this.xt_şifre.ResumeLayout(false);
             this.xt_şifrePage_ParolaDeğiş.ResumeLayout(false);
             this.xt_şifrePage_ParolaDeğiş.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_mevcutParola.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_yeniParolaTekrar.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_yeniParola.Properties)).EndInit();
             this.xt_şifrePage_giriş.ResumeLayout(false);
             this.xt_şifrePage_giriş.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txt_kullanıcıAdı.Properties)).EndInit();
@@ -1167,11 +1191,11 @@ namespace Kelime_Ezber_Sistemi
             this.xt_şıklarPage_yazmalı.ResumeLayout(false);
             this.xt_şıklarPage_yazmalı.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txt_yazmalı_yanıt.Properties)).EndInit();
+            this.xt_anaPage_kalıcıHafıza.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.contextMenuStrip_kullanıcıAdı.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.txt_mevcutParola.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txt_yeniParola.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txt_yeniParolaTekrar.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl_kalıcıHafıza)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1272,6 +1296,8 @@ namespace Kelime_Ezber_Sistemi
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.LabelControl labelControl4;
+        private DevExpress.XtraGrid.GridControl gridControl_kalıcıHafıza;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
     }
 }
 
