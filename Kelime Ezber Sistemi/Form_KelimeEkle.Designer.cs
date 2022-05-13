@@ -33,8 +33,13 @@ namespace Kelime_Ezber_Sistemi
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.btn_gözat = new DevExpress.XtraEditors.SimpleButton();
             this.lbl_dosyaİsmi = new DevExpress.XtraEditors.LabelControl();
             this.btn_yükle = new DevExpress.XtraEditors.SimpleButton();
@@ -59,8 +64,13 @@ namespace Kelime_Ezber_Sistemi
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.gridColumn1,
             this.gridColumn2,
+            this.gridColumn6,
             this.gridColumn3,
-            this.gridColumn4});
+            this.gridColumn4,
+            this.gridColumn5,
+            this.gridColumn7,
+            this.gridColumn8,
+            this.gridColumn9});
             this.gridView1.GridControl = this.gridControl_kelimeEkle;
             this.gridView1.Name = "gridView1";
             // 
@@ -80,21 +90,65 @@ namespace Kelime_Ezber_Sistemi
             this.gridColumn2.Visible = true;
             this.gridColumn2.VisibleIndex = 1;
             // 
+            // gridColumn6
+            // 
+            this.gridColumn6.Caption = "OKUNUŞU";
+            this.gridColumn6.FieldName = "oku";
+            this.gridColumn6.MinWidth = 21;
+            this.gridColumn6.Name = "gridColumn6";
+            this.gridColumn6.Visible = true;
+            this.gridColumn6.VisibleIndex = 2;
+            // 
             // gridColumn3
             // 
             this.gridColumn3.Caption = "TÜR";
             this.gridColumn3.FieldName = "tür";
             this.gridColumn3.Name = "gridColumn3";
             this.gridColumn3.Visible = true;
-            this.gridColumn3.VisibleIndex = 2;
+            this.gridColumn3.VisibleIndex = 3;
             // 
             // gridColumn4
             // 
-            this.gridColumn4.Caption = "Alan";
+            this.gridColumn4.Caption = "ALAN";
             this.gridColumn4.FieldName = "alan";
             this.gridColumn4.Name = "gridColumn4";
             this.gridColumn4.Visible = true;
-            this.gridColumn4.VisibleIndex = 3;
+            this.gridColumn4.VisibleIndex = 4;
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.Caption = "KUR";
+            this.gridColumn5.FieldName = "kur";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.Visible = true;
+            this.gridColumn5.VisibleIndex = 5;
+            // 
+            // gridColumn7
+            // 
+            this.gridColumn7.Caption = "EŞ";
+            this.gridColumn7.FieldName = "eş";
+            this.gridColumn7.MinWidth = 21;
+            this.gridColumn7.Name = "gridColumn7";
+            this.gridColumn7.Visible = true;
+            this.gridColumn7.VisibleIndex = 6;
+            // 
+            // gridColumn8
+            // 
+            this.gridColumn8.Caption = "KO";
+            this.gridColumn8.FieldName = "ko";
+            this.gridColumn8.Name = "gridColumn8";
+            this.gridColumn8.Visible = true;
+            this.gridColumn8.VisibleIndex = 7;
+            this.gridColumn8.Width = 64;
+            // 
+            // gridColumn9
+            // 
+            this.gridColumn9.Caption = "id";
+            this.gridColumn9.FieldName = "id";
+            this.gridColumn9.Name = "gridColumn9";
+            this.gridColumn9.Visible = true;
+            this.gridColumn9.VisibleIndex = 8;
+            this.gridColumn9.Width = 64;
             // 
             // btn_gözat
             // 
@@ -128,13 +182,18 @@ namespace Kelime_Ezber_Sistemi
             // 
             // lbl_yüzde
             // 
+            this.lbl_yüzde.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lbl_yüzde.Appearance.Font = new System.Drawing.Font("Tahoma", 7F);
             this.lbl_yüzde.Appearance.Options.UseFont = true;
-            this.lbl_yüzde.Location = new System.Drawing.Point(637, 37);
+            this.lbl_yüzde.Appearance.Options.UseTextOptions = true;
+            this.lbl_yüzde.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.lbl_yüzde.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lbl_yüzde.ImageAlignToText = DevExpress.XtraEditors.ImageAlignToText.RightTop;
+            this.lbl_yüzde.LineStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            this.lbl_yüzde.Location = new System.Drawing.Point(393, 37);
             this.lbl_yüzde.Name = "lbl_yüzde";
-            this.lbl_yüzde.Size = new System.Drawing.Size(5, 11);
+            this.lbl_yüzde.Size = new System.Drawing.Size(288, 13);
             this.lbl_yüzde.TabIndex = 3;
-            this.lbl_yüzde.Text = "0";
             // 
             // Form_KelimeEkle
             // 
@@ -147,6 +206,7 @@ namespace Kelime_Ezber_Sistemi
             this.Controls.Add(this.btn_gözat);
             this.Controls.Add(this.gridControl_kelimeEkle);
             this.Name = "Form_KelimeEkle";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_KelimeEkle";
             ((System.ComponentModel.ISupportInitialize)(this.gridControl_kelimeEkle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
@@ -168,5 +228,10 @@ namespace Kelime_Ezber_Sistemi
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private DevExpress.XtraEditors.LabelControl lbl_yüzde;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
     }
 }

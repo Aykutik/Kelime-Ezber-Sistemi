@@ -30,14 +30,18 @@ namespace Kelime_Ezber_Sistemi
         {
             lbl_cevap.Text = cevap;
             lbl_kelime.Text = kelime;
-            btn_gönder.Visible = false;
+            btn_gönder.Enabled = false;
         }
 
         private void rtb_sorun_TextChanged(object sender, EventArgs e)
         {
             if (rtb_sorun.Text.Length>5)
             {
-                btn_gönder.Visible = true;
+                btn_gönder.Enabled = true;
+            }
+            else
+            {
+                btn_gönder.Enabled = false;
             }
         }
 
@@ -72,6 +76,14 @@ namespace Kelime_Ezber_Sistemi
 
             this.Close();
 
+            var frm = (Form_AnaSayfa)Application.OpenForms["Form_AnaSayfa"];
+            if (frm != null)
+                frm.sorunBildirSonrası();
+        }
+
+        private void btn_vazgeç_Click(object sender, EventArgs e)
+        {
+            this.Close();
             var frm = (Form_AnaSayfa)Application.OpenForms["Form_AnaSayfa"];
             if (frm != null)
                 frm.sorunBildirSonrası();
